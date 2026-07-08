@@ -1,0 +1,306 @@
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="UTF-8"/>
+        <title>Kepler.gl embedded map</title>
+
+        <!--Uber Font-->
+        <link rel="stylesheet" href="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/uber-fonts/4.0.0/superfine.css">
+
+        <!--Kepler css-->
+        <link href="https://unpkg.com/kepler.gl@3.3.0-alpha.1/umd/keplergl.min.css" rel="stylesheet">
+
+        <!--MapBox css-->
+        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css" rel="stylesheet">
+        <link href="https://unpkg.com/maplibre-gl@^3/dist/maplibre-gl.css" rel="stylesheet">
+
+        <!-— facebook open graph tags -->
+        <meta property="og:url" content="http://kepler.gl/" />
+        <meta property="og:title" content="Large-scale WebGL-powered Geospatial Data Visualization Tool" />
+        <meta property="og:description" content="Kepler.gl is a powerful web-based geospatial data analysis tool. Built on a high performance rendering engine and designed for large-scale data sets." />
+        <meta property="og:site_name" content="kepler.gl" />
+        <meta property="og:image" content="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/kepler.gl-meta-tag.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="800" />
+
+        <!-— twitter card tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@openjsf">
+        <meta name="twitter:creator" content="@openjsf">
+        <meta name="twitter:title" content="Large-scale WebGL-powered Geospatial Data Visualization Tool">
+        <meta name="twitter:description" content="Kepler.gl is a powerful web-based geospatial data analysis tool. Built on a high performance rendering engine and designed for large-scale data sets.">
+        <meta name="twitter:image" content="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/kepler.gl-meta-tag.png" />
+
+        <!-- Load React/Redux -->
+        <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/redux@4.2.1/dist/redux.js" crossorigin></script>
+        <script src="https://unpkg.com/react-redux@8.1.2/dist/react-redux.min.js" crossorigin></script>
+        <script src="https://unpkg.com/styled-components@6.1.8/dist/styled-components.min.js" crossorigin></script>
+
+        <!-- Load Kepler.gl -->
+        <script src="https://unpkg.com/kepler.gl@3.3.0-alpha.1/umd/keplergl.min.js" crossorigin></script>
+
+        <style type="text/css">
+          body {margin: 0; padding: 0; overflow: hidden;}
+        </style>
+
+        <!--MapBox token-->
+        <!--
+          SECURITY NOTE: Your Mapbox access token is embedded below in plain text.
+          Anyone with access to this HTML file can see and use this token.
+          Consider using a scoped token with URL restrictions to limit misuse.
+          See: https://docs.mapbox.com/accounts/guides/tokens/#url-restrictions
+        -->
+        <script>
+          /**
+           * Provide your MapBox Token
+           **/
+          const MAPBOX_TOKEN = 'pk.eyJ1IjoidWNmLW1hcGJveCIsImEiOiJjbDBiYzlveHgwdnF0M2NtZzUzZWZuNWZ4In0.l9J8ptz3MKwaU9I4PtCcig';
+          const WARNING_MESSAGE = 'Please Provide a Mapbox Token in order to use Kepler.gl. Edit this file and fill out MAPBOX_TOKEN with your access key';
+        </script>
+
+        <!-- GA: Delete this as you wish, However to pat ourselves on the back, we only track anonymous pageview to understand how many people are using kepler.gl. -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-64694404-19', {
+            'storage': 'none',
+            'clientId': localStorage.getItem('ga:clientId')
+          });
+          ga(function(tracker) {
+              localStorage.setItem('ga:clientId', tracker.get('clientId'));
+          });
+          ga('set', 'checkProtocolTask', null); // Disable file protocol checking.
+          ga('set', 'checkStorageTask', null); // Disable cookie storage checking.
+          ga('set', 'historyImportTask', null); // Disable history checking (requires reading from cookies).
+          ga('set', 'page', 'keplergl-html');
+          ga('send', 'pageview');
+        </script>
+      </head>
+      <body>
+        <!-- We will put our React component inside this div. -->
+        <div id="app">
+          <!-- Kepler.gl map will be placed here-->
+        </div>
+
+        <!-- Load our React component. -->
+        <script>
+          /* Validate Mapbox Token */
+          if ((MAPBOX_TOKEN || '') === '' || MAPBOX_TOKEN === 'PROVIDE_MAPBOX_TOKEN') {
+            alert(WARNING_MESSAGE);
+          }
+
+          /** STORE **/
+          const reducers = (function createReducers(redux, keplerGl) {
+            return redux.combineReducers({
+              // mount keplerGl reducer
+              keplerGl: keplerGl.keplerGlReducer.initialState({
+                uiState: {
+                  readOnly: true,
+                  currentModal: null
+                }
+              })
+            });
+          }(Redux, KeplerGl));
+
+          const middleWares = (function createMiddlewares(keplerGl) {
+            return keplerGl.enhanceReduxMiddleware([
+              // Add other middlewares here
+            ]);
+          }(KeplerGl));
+
+          const enhancers = (function craeteEnhancers(redux, middles) {
+            return redux.applyMiddleware(...middles);
+          }(Redux, middleWares));
+
+          const store = (function createStore(redux, enhancers) {
+            const initialState = {};
+
+            return redux.createStore(
+              reducers,
+              initialState,
+              redux.compose(enhancers)
+            );
+          }(Redux, enhancers));
+          /** END STORE **/
+
+          /** COMPONENTS **/
+          /** Custom map control factory to add Effects button + panel **/
+          var CustomMapControlFactory = (function createCustomMapControl(react, keplerGl) {
+            var EffectControlFactory = keplerGl.EffectControlFactory;
+            var EffectManagerFactory = keplerGl.EffectManagerFactory;
+            var MapControlFactory = keplerGl.MapControlFactory;
+
+            if (!EffectControlFactory || !EffectManagerFactory || !MapControlFactory) {
+              console.warn('kepler.gl: Effect factories not available, skipping effect control injection');
+              return null;
+            }
+
+            function EffectMapControlFactory(EffectControl, EffectManager) {
+              var args = Array.prototype.slice.call(arguments, 2);
+              var MapControl = MapControlFactory.apply(null, args);
+              var actionComponents = (MapControl.defaultActionComponents || []).concat([EffectControl]);
+
+              var EffectMapControl = function EffectMapControl(props) {
+                var showEffects = Boolean(props.mapControls && props.mapControls.effect && props.mapControls.effect.active);
+                return react.createElement(
+                  'div',
+                  {style: {
+                    position: 'absolute',
+                    display: 'flex',
+                    top: (props.top || 0) + 'px',
+                    right: 0,
+                    zIndex: 1,
+                    maxHeight: '100%',
+                    pointerEvents: 'none'
+                  }},
+                  react.createElement(
+                    'div',
+                    {style: {position: 'relative', pointerEvents: 'all'}},
+                    react.createElement(MapControl, Object.assign({}, props, {top: 0, actionComponents: actionComponents}))
+                  ),
+                  showEffects
+                    ? react.createElement('div', {
+                        style: {
+                          maxHeight: '100%',
+                          overflow: 'hidden',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          pointerEvents: 'all',
+                          marginTop: '10px'
+                        }
+                      }, react.createElement(EffectManager, null))
+                    : null
+                );
+              };
+
+              return EffectMapControl;
+            }
+            EffectMapControlFactory.deps = [EffectControlFactory, EffectManagerFactory].concat(MapControlFactory.deps);
+
+            return [MapControlFactory, EffectMapControlFactory];
+          }(React, KeplerGl));
+
+          var KeplerGlComponent = CustomMapControlFactory
+            ? KeplerGl.injectComponents([CustomMapControlFactory])
+            : KeplerGl.KeplerGl;
+
+          var KeplerElement = (function makeKeplerElement(react, keplerGl, mapboxToken) {
+            var LogoSvg = function LogoSvg() {
+              return react.createElement(
+                "div",
+                { className: "logo-container", style: {position: 'fixed', zIndex: 10000, padding: '4px'} },
+                  react.createElement(
+                    "svg",
+                    {
+                      className: "kepler_gl__logo",
+                      width: "107px",
+                      height: "21px",
+                      viewBox: "0 0 124 24"
+                    },
+                    react.createElement(
+                      "g",
+                      { transform: "translate(13.500000, 13.500000) rotate(45.000000) translate(-13.500000, -13.500000) translate(4.000000, 4.000000)" },
+                      react.createElement("rect", { x: "0", y: "6", transform: "matrix(2.535181e-06 1 -1 2.535181e-06 18.1107 6.0369)", fill: "#535C6C", width: "12.1", height: "12.1" }),
+                      react.createElement("rect", { x: "6", y: "0", transform: "matrix(2.535182e-06 1 -1 2.535182e-06 18.1107 -6.0369)", fill:"#1FBAD6", width: "12.1", height: "12.1" })
+                    ),
+                    react.createElement(
+                      "g",
+                      {},
+                      react.createElement("path", { fill:"#1FBAD6", d: "M39,8.7h2.2l-2.8,4.2l2.9,5.1H39l-2.4-4.2h-1.3V18h-2V5l2-0.1v7.3h1.3L39,8.7z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M42.4,13.3c0-1.5,0.4-2.7,1.1-3.5s1.8-1.2,3.1-1.2c1.3,0,2.2,0.4,2.8,1.1c0.6,0.7,0.9,1.8,0.9,3.3 c0,0.4,0,0.8,0,1.1h-5.8c0,1.6,0.8,2.4,2.4,2.4c1,0,2-0.2,2.9-0.6l0.2,1.7c-0.4,0.2-0.9,0.4-1.4,0.5s-1.1,0.2-1.7,0.2 c-1.5,0-2.6-0.4-3.3-1.2C42.8,16.1,42.4,14.9,42.4,13.3z M46.6,10.1c-0.7,0-1.2,0.2-1.5,0.5c-0.4,0.4-0.6,0.9-0.6,1.7h4 c0-0.8-0.2-1.4-0.5-1.7S47.2,10.1,46.6,10.1z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M57.1,18.2c-1,0-1.8-0.3-2.3-0.9l0,0l0,1.3v2.5h-2V8.7h1.5l0.3,0.9h0c0.3-0.3,0.7-0.6,1.2-0.7 c0.4-0.2,0.9-0.3,1.4-0.3c1.2,0,2.1,0.4,2.7,1.1c0.6,0.7,0.9,2,0.9,3.7c0,1.6-0.3,2.8-1,3.7C59.2,17.8,58.3,18.2,57.1,18.2z M56.7,10.3c-0.4,0-0.8,0.1-1.1,0.2c-0.3,0.2-0.6,0.4-0.8,0.7v4.3c0.2,0.3,0.4,0.5,0.7,0.7c0.3,0.2,0.7,0.3,1.1,0.3 c0.7,0,1.2-0.2,1.6-0.7c0.4-0.5,0.5-1.3,0.5-2.5c0-0.8-0.1-1.4-0.2-1.8s-0.4-0.7-0.7-0.9C57.6,10.4,57.2,10.3,56.7,10.3z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M63.2,16V5l2-0.1v10.8c0,0.3,0.1,0.5,0.2,0.6c0.1,0.1,0.3,0.2,0.6,0.2c0.3,0,0.6,0,0.9-0.1V18 c-0.4,0.1-1,0.2-1.6,0.2c-0.8,0-1.3-0.2-1.7-0.5S63.2,16.8,63.2,16z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M68.2,13.3c0-1.5,0.4-2.7,1.1-3.5c0.7-0.8,1.8-1.2,3.1-1.2c1.3,0,2.2,0.4,2.8,1.1c0.6,0.7,0.9,1.8,0.9,3.3 c0,0.4,0,0.8,0,1.1h-5.8c0,1.6,0.8,2.4,2.4,2.4c1,0,2-0.2,2.9-0.6l0.2,1.7c-0.4,0.2-0.9,0.4-1.4,0.5s-1.1,0.2-1.7,0.2 c-1.5,0-2.6-0.4-3.3-1.2C68.6,16.1,68.2,14.9,68.2,13.3z M72.4,10.1c-0.7,0-1.2,0.2-1.5,0.5c-0.4,0.4-0.6,0.9-0.6,1.7h4 c0-0.8-0.2-1.4-0.5-1.7S73,10.1,72.4,10.1z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M80.2,8.7l0.1,1.7h0c0.3-0.6,0.7-1.1,1.1-1.4c0.4-0.3,1-0.5,1.6-0.5c0.4,0,0.7,0,1,0.1l-0.1,2 c-0.3-0.1-0.7-0.2-1-0.2c-0.7,0-1.3,0.3-1.7,0.8c-0.4,0.5-0.7,1.2-0.7,2.1V18h-2V8.7H80.2z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M83.8,17c0-0.8,0.4-1.2,1.2-1.2c0.8,0,1.2,0.4,1.2,1.2c0,0.8-0.4,1.1-1.2,1.1C84.2,18.2,83.8,17.8,83.8,17z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M88.5,18.7c0-0.8,0.4-1.4,1.2-1.8c-0.6-0.3-0.9-0.8-0.9-1.5c0-0.7,0.4-1.2,1.1-1.6c-0.3-0.3-0.6-0.6-0.7-0.9 c-0.2-0.4-0.2-0.8-0.2-1.3c0-1,0.3-1.8,0.9-2.3c0.6-0.5,1.6-0.8,2.8-0.8c0.5,0,1,0,1.4,0.1c0.4,0.1,0.8,0.2,1.1,0.4l2.4-0.2v1.5 h-1.5c0.2,0.4,0.2,0.8,0.2,1.3c0,1-0.3,1.7-0.9,2.2s-1.5,0.8-2.7,0.8c-0.7,0-1.2-0.1-1.6-0.2c-0.1,0.1-0.2,0.2-0.3,0.3 c-0.1,0.1-0.1,0.2-0.1,0.4c0,0.2,0.1,0.3,0.2,0.4c0.1,0.1,0.3,0.2,0.6,0.2l2.7,0.2c1,0.1,1.7,0.3,2.2,0.6c0.5,0.3,0.8,0.9,0.8,1.7 c0,0.6-0.2,1.1-0.5,1.5c-0.4,0.4-0.9,0.8-1.5,1c-0.7,0.2-1.5,0.4-2.4,0.4c-1.3,0-2.3-0.2-3-0.6C88.8,20.1,88.5,19.5,88.5,18.7z M95.1,18.4c0-0.3-0.1-0.5-0.3-0.7s-0.6-0.2-1.1-0.3l-2.7-0.3c-0.2,0.1-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6 c0,0.4,0.2,0.8,0.5,1c0.4,0.2,1,0.3,1.8,0.3C94.2,19.5,95.1,19.2,95.1,18.4z M94.3,11.5c0-0.6-0.1-1-0.4-1.2 c-0.3-0.2-0.7-0.3-1.3-0.3c-0.7,0-1.1,0.1-1.4,0.3c-0.3,0.2-0.4,0.6-0.4,1.2s0.1,1,0.4,1.2c0.3,0.2,0.7,0.3,1.4,0.3 c0.6,0,1.1-0.1,1.3-0.4S94.3,12,94.3,11.5z" }),
+                      react.createElement("path", { fill:"#1FBAD6", d: "M99.4,16V5l2-0.1v10.8c0,0.3,0.1,0.5,0.2,0.6c0.1,0.1,0.3,0.2,0.6,0.2c0.3,0,0.6,0,0.9-0.1V18 c-0.4,0.1-1,0.2-1.6,0.2c-0.8,0-1.3-0.2-1.7-0.5S99.4,16.8,99.4,16z" })
+                    )
+                  )
+                );
+              };
+
+            return function App() {
+              var rootElm = react.useRef(null);
+              var _useState = react.useState({
+                width: window.innerWidth,
+                height: window.innerHeight
+              });
+              var windowDimension = _useState[0];
+              var setDimension = _useState[1];
+              react.useEffect(function sideEffect(){
+                function handleResize() {
+                  setDimension({width: window.innerWidth, height: window.innerHeight});
+                };
+                window.addEventListener('resize', handleResize);
+                return function() {window.removeEventListener('resize', handleResize);};
+              }, []);
+              return react.createElement(
+                'div',
+                {style: {position: 'absolute', left: 0, width: '100vw', height: '100vh'}},
+                LogoSvg(),
+                react.createElement(KeplerGlComponent, {
+                  mapboxApiAccessToken: mapboxToken,
+                  id: "map",
+                  width: windowDimension.width,
+                  height: windowDimension.height
+                })
+              )
+            }
+          }(React, KeplerGl, MAPBOX_TOKEN));
+
+          const app = (function createReactReduxProvider(react, reactRedux, KeplerElement) {
+            return react.createElement(
+              reactRedux.Provider,
+              {store},
+              react.createElement(KeplerElement, null)
+            )
+          }(React, ReactRedux, KeplerElement));
+          /** END COMPONENTS **/
+
+          /** Render **/
+          (function render(react, reactDOM, app) {
+            const container = document.getElementById('app');
+            const root = reactDOM.createRoot(container);
+            root.render(app);
+          }(React, ReactDOM, app));
+        </script>
+        <!-- The next script will show how to interact directly with Kepler map store -->
+        <script>
+          /**
+           * Customize map.
+           * In the following section you can use the store object to dispatch Kepler.gl actions
+           * to add new data and customize behavior
+           */
+          (function customize(keplerGl, store) {
+            const datasets = [{"version":"v1","data":{"id":"-729utq","label":"Educadores populares - Seminários.geojson","color":[143,47,191],"allData":[[{"type":"Feature","properties":{"uid":11,"CD_MUN":1100122,"NM_MUN":"Ji-Paraná","SIGLA_UF":"RO","AREA_KM2":6896.649,"Participantes":1},"geometry":{"type":"Point","coordinates":[-61.757252672701725,-10.4622205323863]}},11,1100122,"Ji-Paraná","RO",6896.649,1],[{"type":"Feature","properties":{"uid":16,"CD_MUN":1100205,"NM_MUN":"Porto Velho","SIGLA_UF":"RO","AREA_KM2":34090.952,"Participantes":7},"geometry":{"type":"Point","coordinates":[-64.30681433326818,-9.153592826551979]}},16,1100205,"Porto Velho","RO",34090.952,7],[{"type":"Feature","properties":{"uid":111,"CD_MUN":1302603,"NM_MUN":"Manaus","SIGLA_UF":"AM","AREA_KM2":11401.092,"Participantes":14},"geometry":{"type":"Point","coordinates":[-60.25962801421486,-2.625919382624245]}},111,1302603,"Manaus","AM",11401.092,14],[{"type":"Feature","properties":{"uid":119,"CD_MUN":1303403,"NM_MUN":"Parintins","SIGLA_UF":"AM","AREA_KM2":5956.047,"Participantes":1},"geometry":{"type":"Point","coordinates":[-56.85464486626843,-2.688097965999019]}},119,1303403,"Parintins","AM",5956.047,1],[{"type":"Feature","properties":{"uid":129,"CD_MUN":1304062,"NM_MUN":"Tabatinga","SIGLA_UF":"AM","AREA_KM2":3260.103,"Participantes":2},"geometry":{"type":"Point","coordinates":[-69.67762502510641,-4.028249697324346]}},129,1304062,"Tabatinga","AM",3260.103,2],[{"type":"Feature","properties":{"uid":131,"CD_MUN":1304203,"NM_MUN":"Tefé","SIGLA_UF":"AM","AREA_KM2":23692.223,"Participantes":2},"geometry":{"type":"Point","coordinates":[-65.53153604445829,-4.470110667399924]}},131,1304203,"Tefé","AM",23692.223,2],[{"type":"Feature","properties":{"uid":138,"CD_MUN":1400100,"NM_MUN":"Boa Vista","SIGLA_UF":"RR","AREA_KM2":5687.037,"Participantes":5},"geometry":{"type":"Point","coordinates":[-60.71795308500435,3.117915000989196]}},138,1400100,"Boa Vista","RR",5687.037,5],[{"type":"Feature","properties":{"uid":143,"CD_MUN":1400282,"NM_MUN":"Iracema","SIGLA_UF":"RR","AREA_KM2":14011.695,"Participantes":1},"geometry":{"type":"Point","coordinates":[-62.401659326868796,2.181807877209425]}},143,1400282,"Iracema","RR",14011.695,1],[{"type":"Feature","properties":{"uid":158,"CD_MUN":1500602,"NM_MUN":"Altamira","SIGLA_UF":"PA","AREA_KM2":159533.306,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.88668321249472,-6.486171805709006]}},158,1500602,"Altamira","PA",159533.306,1],[{"type":"Feature","properties":{"uid":160,"CD_MUN":1500800,"NM_MUN":"Ananindeua","SIGLA_UF":"PA","AREA_KM2":190.581,"Participantes":1},"geometry":{"type":"Point","coordinates":[-48.38354432668742,-1.334076857895314]}},160,1500800,"Ananindeua","PA",190.581,1],[{"type":"Feature","properties":{"uid":169,"CD_MUN":1501402,"NM_MUN":"Belém","SIGLA_UF":"PA","AREA_KM2":1059.466,"Participantes":31},"geometry":{"type":"Point","coordinates":[-48.45991077071476,-1.240718655554154]}},169,1501402,"Belém","PA",1059.466,31],[{"type":"Feature","properties":{"uid":174,"CD_MUN":1501709,"NM_MUN":"Bragança","SIGLA_UF":"PA","AREA_KM2":2124.734,"Participantes":3},"geometry":{"type":"Point","coordinates":[-46.76358126911983,-1.193086456472833]}},174,1501709,"Bragança","PA",2124.734,3],[{"type":"Feature","properties":{"uid":178,"CD_MUN":1501808,"NM_MUN":"Breves","SIGLA_UF":"PA","AREA_KM2":9566.572,"Participantes":2},"geometry":{"type":"Point","coordinates":[-50.62814636587193,-1.120905040902304]}},178,1501808,"Breves","PA",9566.572,2],[{"type":"Feature","properties":{"uid":182,"CD_MUN":1502103,"NM_MUN":"Cametá","SIGLA_UF":"PA","AREA_KM2":3081.367,"Participantes":2},"geometry":{"type":"Point","coordinates":[-49.51357185465954,-2.253061762016818]}},182,1502103,"Cametá","PA",3081.367,2],[{"type":"Feature","properties":{"uid":186,"CD_MUN":1502400,"NM_MUN":"Castanhal","SIGLA_UF":"PA","AREA_KM2":1029.3,"Participantes":4},"geometry":{"type":"Point","coordinates":[-47.87698077345739,-1.268514868373353]}},186,1502400,"Castanhal","PA",1029.3,4],[{"type":"Feature","properties":{"uid":193,"CD_MUN":1502806,"NM_MUN":"Curralinho","SIGLA_UF":"PA","AREA_KM2":3617.252,"Participantes":1},"geometry":{"type":"Point","coordinates":[-49.98803389548679,-1.58346226576996]}},193,1502806,"Curralinho","PA",3617.252,1],[{"type":"Feature","properties":{"uid":216,"CD_MUN":1504208,"NM_MUN":"Marabá","SIGLA_UF":"PA","AREA_KM2":15128.058,"Participantes":1},"geometry":{"type":"Point","coordinates":[-50.01696035472193,-5.629799734576397]}},216,1504208,"Marabá","PA",15128.058,1],[{"type":"Feature","properties":{"uid":245,"CD_MUN":1505700,"NM_MUN":"Ponta de Pedras","SIGLA_UF":"PA","AREA_KM2":3363.749,"Participantes":1},"geometry":{"type":"Point","coordinates":[-49.077282012808574,-1.117508431952444]}},245,1505700,"Ponta de Pedras","PA",3363.749,1],[{"type":"Feature","properties":{"uid":256,"CD_MUN":1506302,"NM_MUN":"Salvaterra","SIGLA_UF":"PA","AREA_KM2":918.563,"Participantes":2},"geometry":{"type":"Point","coordinates":[-48.62998389119485,-0.79662363740987]}},256,1506302,"Salvaterra","PA",918.563,2],[{"type":"Feature","properties":{"uid":264,"CD_MUN":1506807,"NM_MUN":"Santarém","SIGLA_UF":"PA","AREA_KM2":17898.389,"Participantes":3},"geometry":{"type":"Point","coordinates":[-55.23845547141105,-2.679336293626365]}},264,1506807,"Santarém","PA",17898.389,3],[{"type":"Feature","properties":{"uid":266,"CD_MUN":1507003,"NM_MUN":"Santo Antônio do Tauá","SIGLA_UF":"PA","AREA_KM2":537.618,"Participantes":1},"geometry":{"type":"Point","coordinates":[-48.182765463472656,-1.093255829195583]}},266,1507003,"Santo Antônio do Tauá","PA",537.618,1],[{"type":"Feature","properties":{"uid":302,"CD_MUN":1600279,"NM_MUN":"Laranjal do Jari","SIGLA_UF":"AP","AREA_KM2":30782.998,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.310545943119436,1.101363553356844]}},302,1600279,"Laranjal do Jari","AP",30782.998,1],[{"type":"Feature","properties":{"uid":303,"CD_MUN":1600303,"NM_MUN":"Macapá","SIGLA_UF":"AP","AREA_KM2":6563.849,"Participantes":11},"geometry":{"type":"Point","coordinates":[-50.69178036166325,0.56275320249522]}},303,1600303,"Macapá","AP",6563.849,11],[{"type":"Feature","properties":{"uid":322,"CD_MUN":1702109,"NM_MUN":"Araguaína","SIGLA_UF":"TO","AREA_KM2":4004.646,"Participantes":1},"geometry":{"type":"Point","coordinates":[-48.58780157697001,-7.331298748626634]}},322,1702109,"Araguaína","TO",4004.646,1],[{"type":"Feature","properties":{"uid":443,"CD_MUN":1721000,"NM_MUN":"Palmas","SIGLA_UF":"TO","AREA_KM2":2227.329,"Participantes":7},"geometry":{"type":"Point","coordinates":[-48.15209201507636,-10.220182874151416]}},443,1721000,"Palmas","TO",2227.329,7],[{"type":"Feature","properties":{"uid":445,"CD_MUN":1721208,"NM_MUN":"Tocantinópolis","SIGLA_UF":"TO","AREA_KM2":1083.6,"Participantes":1},"geometry":{"type":"Point","coordinates":[-47.538071737457685,-6.256849812182863]}},445,1721208,"Tocantinópolis","TO",1083.6,1],[{"type":"Feature","properties":{"uid":469,"CD_MUN":2101202,"NM_MUN":"Bacabal","SIGLA_UF":"MA","AREA_KM2":1656.736,"Participantes":1},"geometry":{"type":"Point","coordinates":[-44.76188059603843,-4.171104529992904]}},469,2101202,"Bacabal","MA",1656.736,1],[{"type":"Feature","properties":{"uid":501,"CD_MUN":2103000,"NM_MUN":"Caxias","SIGLA_UF":"MA","AREA_KM2":5201.927,"Participantes":1},"geometry":{"type":"Point","coordinates":[-43.29918744479204,-4.866408970389228]}},501,2103000,"Caxias","MA",5201.927,1],[{"type":"Feature","properties":{"uid":635,"CD_MUN":2111300,"NM_MUN":"São Luís","SIGLA_UF":"MA","AREA_KM2":583.063,"Participantes":4},"geometry":{"type":"Point","coordinates":[-44.28090421619838,-2.63369064862169]}},635,2111300,"São Luís","MA",583.063,4],[{"type":"Feature","properties":{"uid":745,"CD_MUN":2203701,"NM_MUN":"Esperantina","SIGLA_UF":"PI","AREA_KM2":908.748,"Participantes":1},"geometry":{"type":"Point","coordinates":[-42.18968433540692,-3.823374491925147]}},745,2203701,"Esperantina","PI",908.748,1],[{"type":"Feature","properties":{"uid":751,"CD_MUN":2204105,"NM_MUN":"Francisco Ayres","SIGLA_UF":"PI","AREA_KM2":656.475,"Participantes":1},"geometry":{"type":"Point","coordinates":[-42.72150541553644,-6.669155418421405]}},751,2204105,"Francisco Ayres","PI",656.475,1],[{"type":"Feature","properties":{"uid":829,"CD_MUN":2208304,"NM_MUN":"Piracuruca","SIGLA_UF":"PI","AREA_KM2":2368.935,"Participantes":1},"geometry":{"type":"Point","coordinates":[-41.614506660437,-3.85357232505688]}},829,2208304,"Piracuruca","PI",2368.935,1],[{"type":"Feature","properties":{"uid":830,"CD_MUN":2208403,"NM_MUN":"Piripiri","SIGLA_UF":"PI","AREA_KM2":1407.192,"Participantes":1},"geometry":{"type":"Point","coordinates":[-41.77135686965904,-4.330951275081556]}},830,2208403,"Piripiri","PI",1407.192,1],[{"type":"Feature","properties":{"uid":882,"CD_MUN":2211001,"NM_MUN":"Teresina","SIGLA_UF":"PI","AREA_KM2":1391.293,"Participantes":5},"geometry":{"type":"Point","coordinates":[-42.740607682871925,-5.102658079185757]}},882,2211001,"Teresina","PI",1391.293,5],[{"type":"Feature","properties":{"uid":934,"CD_MUN":2303709,"NM_MUN":"Caucaia","SIGLA_UF":"CE","AREA_KM2":1223.246,"Participantes":1},"geometry":{"type":"Point","coordinates":[-38.80969126229066,-3.783590265888809]}},934,2303709,"Caucaia","CE",1223.246,1],[{"type":"Feature","properties":{"uid":949,"CD_MUN":2304400,"NM_MUN":"Fortaleza","SIGLA_UF":"CE","AREA_KM2":312.353,"Participantes":4},"geometry":{"type":"Point","coordinates":[-38.52800064797037,-3.785832855050637]}},949,2304400,"Fortaleza","CE",312.353,4],[{"type":"Feature","properties":{"uid":989,"CD_MUN":2307304,"NM_MUN":"Juazeiro do Norte","SIGLA_UF":"CE","AREA_KM2":258.788,"Participantes":1},"geometry":{"type":"Point","coordinates":[-39.28616476612857,-7.182814200470799]}},989,2307304,"Juazeiro do Norte","CE",258.788,1],[{"type":"Feature","properties":{"uid":1041,"CD_MUN":2311405,"NM_MUN":"Quixeramobim","SIGLA_UF":"CE","AREA_KM2":3324.987,"Participantes":2},"geometry":{"type":"Point","coordinates":[-39.3332092888883,-5.245547303632581]}},1041,2311405,"Quixeramobim","CE",3324.987,2],[{"type":"Feature","properties":{"uid":1163,"CD_MUN":2408102,"NM_MUN":"Natal","SIGLA_UF":"RN","AREA_KM2":167.401,"Participantes":11},"geometry":{"type":"Point","coordinates":[-35.22884143639072,-5.803174652811966]}},1163,2408102,"Natal","RN",167.401,11],[{"type":"Feature","properties":{"uid":1178,"CD_MUN":2409506,"NM_MUN":"Pedra Grande","SIGLA_UF":"RN","AREA_KM2":221.167,"Participantes":1},"geometry":{"type":"Point","coordinates":[-35.87350604932627,-5.146043649088322]}},1178,2409506,"Pedra Grande","RN",221.167,1],[{"type":"Feature","properties":{"uid":1278,"CD_MUN":2502706,"NM_MUN":"Borborema","SIGLA_UF":"PB","AREA_KM2":26.107,"Participantes":1},"geometry":{"type":"Point","coordinates":[-35.60123386253166,-6.794074482663596]}},1278,2502706,"Borborema","PB",26.107,1],[{"type":"Feature","properties":{"uid":1293,"CD_MUN":2504009,"NM_MUN":"Campina Grande","SIGLA_UF":"PB","AREA_KM2":591.658,"Participantes":2},"geometry":{"type":"Point","coordinates":[-35.9656588712548,-7.263553430911804]}},1293,2504009,"Campina Grande","PB",591.658,2],[{"type":"Feature","properties":{"uid":1325,"CD_MUN":2506301,"NM_MUN":"Guarabira","SIGLA_UF":"PB","AREA_KM2":162.387,"Participantes":2},"geometry":{"type":"Point","coordinates":[-35.448015220101084,-6.877847965073569]}},1325,2506301,"Guarabira","PB",162.387,2],[{"type":"Feature","properties":{"uid":1337,"CD_MUN":2507507,"NM_MUN":"João Pessoa","SIGLA_UF":"PB","AREA_KM2":210.044,"Participantes":5},"geometry":{"type":"Point","coordinates":[-34.869531430203295,-7.165465401596831]}},1337,2507507,"João Pessoa","PB",210.044,5],[{"type":"Feature","properties":{"uid":1468,"CD_MUN":2600302,"NM_MUN":"Agrestina","SIGLA_UF":"PE","AREA_KM2":200.369,"Participantes":1},"geometry":{"type":"Point","coordinates":[-35.94524501334192,-8.456613768163754]}},1468,2600302,"Agrestina","PE",200.369,1],[{"type":"Feature","properties":{"uid":1495,"CD_MUN":2602902,"NM_MUN":"Cabo de Santo Agostinho","SIGLA_UF":"PE","AREA_KM2":445.386,"Participantes":1},"geometry":{"type":"Point","coordinates":[-35.085919163414054,-8.26922015438854]}},1495,2602902,"Cabo de Santo Agostinho","PE",445.386,1],[{"type":"Feature","properties":{"uid":1509,"CD_MUN":2604106,"NM_MUN":"Caruaru","SIGLA_UF":"PE","AREA_KM2":923.15,"Participantes":1},"geometry":{"type":"Point","coordinates":[-36.016634840104246,-8.180522959922238]}},1509,2604106,"Caruaru","PE",923.15,1],[{"type":"Feature","properties":{"uid":1596,"CD_MUN":2611606,"NM_MUN":"Recife","SIGLA_UF":"PE","AREA_KM2":218.843,"Participantes":15},"geometry":{"type":"Point","coordinates":[-34.93308626898766,-8.039344937294405]}},1596,2611606,"Recife","PE",218.843,15],[{"type":"Feature","properties":{"uid":1696,"CD_MUN":2704302,"NM_MUN":"Maceió","SIGLA_UF":"AL","AREA_KM2":509.32,"Participantes":3},"geometry":{"type":"Point","coordinates":[-35.71139050025418,-9.522394447084125]}},1696,2704302,"Maceió","AL",509.32,3],[{"type":"Feature","properties":{"uid":1717,"CD_MUN":2706406,"NM_MUN":"Pão de Açúcar","SIGLA_UF":"AL","AREA_KM2":688.87,"Participantes":1},"geometry":{"type":"Point","coordinates":[-37.48552540252361,-9.670581973668964]}},1717,2706406,"Pão de Açúcar","AL",688.87,1],[{"type":"Feature","properties":{"uid":1739,"CD_MUN":2708402,"NM_MUN":"São José da Tapera","SIGLA_UF":"AL","AREA_KM2":490.879,"Participantes":1},"geometry":{"type":"Point","coordinates":[-37.48985525304809,-9.533099956626167]}},1739,2708402,"São José da Tapera","AL",490.879,1],[{"type":"Feature","properties":{"uid":1754,"CD_MUN":2800308,"NM_MUN":"Aracaju","SIGLA_UF":"SE","AREA_KM2":182.163,"Participantes":7},"geometry":{"type":"Point","coordinates":[-37.09491351952143,-10.994202271261502]}},1754,2800308,"Aracaju","SE",182.163,7],[{"type":"Feature","properties":{"uid":1770,"CD_MUN":2802106,"NM_MUN":"Estância","SIGLA_UF":"SE","AREA_KM2":647.344,"Participantes":2},"geometry":{"type":"Point","coordinates":[-37.39794191250897,-11.249506052362655]}},1770,2802106,"Estância","SE",647.344,2],[{"type":"Feature","properties":{"uid":2011,"CD_MUN":2915502,"NM_MUN":"Itajuípe","SIGLA_UF":"BA","AREA_KM2":270.752,"Participantes":1},"geometry":{"type":"Point","coordinates":[-39.444899914408076,-14.671517513851745]}},2011,2915502,"Itajuípe","BA",270.752,1],[{"type":"Feature","properties":{"uid":2162,"CD_MUN":2927408,"NM_MUN":"Salvador","SIGLA_UF":"BA","AREA_KM2":693.442,"Participantes":8},"geometry":{"type":"Point","coordinates":[-38.514721922145064,-12.873491404265641]}},2162,2927408,"Salvador","BA",693.442,8],[{"type":"Feature","properties":{"uid":2183,"CD_MUN":2929206,"NM_MUN":"São Francisco do Conde","SIGLA_UF":"BA","AREA_KM2":269.715,"Participantes":1},"geometry":{"type":"Point","coordinates":[-38.631975134505915,-12.650835991833802]}},2183,2929206,"São Francisco do Conde","BA",269.715,1],[{"type":"Feature","properties":{"uid":2201,"CD_MUN":2930501,"NM_MUN":"Serrinha","SIGLA_UF":"BA","AREA_KM2":583.314,"Participantes":1},"geometry":{"type":"Point","coordinates":[-38.9937904615338,-11.665667457658675]}},2201,2930501,"Serrinha","BA",583.314,1],[{"type":"Feature","properties":{"uid":2212,"CD_MUN":2931202,"NM_MUN":"Taperoá","SIGLA_UF":"BA","AREA_KM2":454.081,"Participantes":1},"geometry":{"type":"Point","coordinates":[-39.22780650682685,-13.572934326740477]}},2212,2931202,"Taperoá","BA",454.081,1],[{"type":"Feature","properties":{"uid":2309,"CD_MUN":3106200,"NM_MUN":"Belo Horizonte","SIGLA_UF":"MG","AREA_KM2":331.354,"Participantes":4},"geometry":{"type":"Point","coordinates":[-43.95998316861417,-19.902684483210766]}},2309,3106200,"Belo Horizonte","MG",331.354,4],[{"type":"Feature","properties":{"uid":2654,"CD_MUN":3136207,"NM_MUN":"João Monlevade","SIGLA_UF":"MG","AREA_KM2":99.158,"Participantes":1},"geometry":{"type":"Point","coordinates":[-43.16148613279337,-19.837941197732]}},2654,3136207,"João Monlevade","MG",99.158,1],[{"type":"Feature","properties":{"uid":2661,"CD_MUN":3136603,"NM_MUN":"Nova União","SIGLA_UF":"MG","AREA_KM2":172.131,"Participantes":1},"geometry":{"type":"Point","coordinates":[-43.572039776676775,-19.635338919897197]}},2661,3136603,"Nova União","MG",172.131,1],[{"type":"Feature","properties":{"uid":2704,"CD_MUN":3140001,"NM_MUN":"Mariana","SIGLA_UF":"MG","AREA_KM2":1194.208,"Participantes":1},"geometry":{"type":"Point","coordinates":[-43.33133404188113,-20.32910250326981]}},2704,3140001,"Mariana","MG",1194.208,1],[{"type":"Feature","properties":{"uid":2750,"CD_MUN":3143906,"NM_MUN":"Muriaé","SIGLA_UF":"MG","AREA_KM2":841.693,"Participantes":1},"geometry":{"type":"Point","coordinates":[-42.42145796771816,-21.091371948925126]}},2750,3143906,"Muriaé","MG",841.693,1],[{"type":"Feature","properties":{"uid":2851,"CD_MUN":3152105,"NM_MUN":"Ponte Nova","SIGLA_UF":"MG","AREA_KM2":470.643,"Participantes":1},"geometry":{"type":"Point","coordinates":[-42.91738704172657,-20.41214921176167]}},2851,3152105,"Ponte Nova","MG",470.643,1],[{"type":"Feature","properties":{"uid":2879,"CD_MUN":3154507,"NM_MUN":"Riacho dos Machados","SIGLA_UF":"MG","AREA_KM2":1315.54,"Participantes":1},"geometry":{"type":"Point","coordinates":[-42.993420725442576,-16.05447914140015]}},2879,3154507,"Riacho dos Machados","MG",1315.54,1],[{"type":"Feature","properties":{"uid":2880,"CD_MUN":3154606,"NM_MUN":"Ribeirão das Neves","SIGLA_UF":"MG","AREA_KM2":155.105,"Participantes":2},"geometry":{"type":"Point","coordinates":[-44.07191091070328,-19.779527738303038]}},2880,3154606,"Ribeirão das Neves","MG",155.105,2],[{"type":"Feature","properties":{"uid":3116,"CD_MUN":3201605,"NM_MUN":"Conceição da Barra","SIGLA_UF":"ES","AREA_KM2":1182.587,"Participantes":1},"geometry":{"type":"Point","coordinates":[-39.83336770188656,-18.445136923837783]}},3116,3201605,"Conceição da Barra","ES",1182.587,1],[{"type":"Feature","properties":{"uid":3127,"CD_MUN":3202504,"NM_MUN":"Ibiraçu","SIGLA_UF":"ES","AREA_KM2":201.248,"Participantes":1},"geometry":{"type":"Point","coordinates":[-40.41786715855492,-19.834798856938907]}},3127,3202504,"Ibiraçu","ES",201.248,1],[{"type":"Feature","properties":{"uid":3162,"CD_MUN":3204708,"NM_MUN":"São Gabriel da Palha","SIGLA_UF":"ES","AREA_KM2":434.887,"Participantes":1},"geometry":{"type":"Point","coordinates":[-40.508464447373875,-18.95271719911816]}},3162,3204708,"São Gabriel da Palha","ES",434.887,1],[{"type":"Feature","properties":{"uid":3166,"CD_MUN":3205002,"NM_MUN":"Serra","SIGLA_UF":"ES","AREA_KM2":547.631,"Participantes":1},"geometry":{"type":"Point","coordinates":[-40.30162038651252,-20.12811891873249]}},3166,3205002,"Serra","ES",547.631,1],[{"type":"Feature","properties":{"uid":3173,"CD_MUN":3205200,"NM_MUN":"Vila Velha","SIGLA_UF":"ES","AREA_KM2":210.225,"Participantes":2},"geometry":{"type":"Point","coordinates":[-40.378255421964234,-20.434083741872453]}},3173,3205200,"Vila Velha","ES",210.225,2],[{"type":"Feature","properties":{"uid":3174,"CD_MUN":3205309,"NM_MUN":"Vitória","SIGLA_UF":"ES","AREA_KM2":97.123,"Participantes":4},"geometry":{"type":"Point","coordinates":[-39.08796186697788,-20.30400979507119]}},3174,3205309,"Vitória","ES",97.123,4],[{"type":"Feature","properties":{"uid":3199,"CD_MUN":3301702,"NM_MUN":"Duque de Caxias","SIGLA_UF":"RJ","AREA_KM2":467.319,"Participantes":2},"geometry":{"type":"Point","coordinates":[-43.29960646712588,-22.632491692335698]}},3199,3301702,"Duque de Caxias","RJ",467.319,2],[{"type":"Feature","properties":{"uid":3229,"CD_MUN":3303906,"NM_MUN":"Petrópolis","SIGLA_UF":"RJ","AREA_KM2":791.144,"Participantes":1},"geometry":{"type":"Point","coordinates":[-43.1568323490078,-22.397956635468034]}},3229,3303906,"Petrópolis","RJ",791.144,1],[{"type":"Feature","properties":{"uid":3242,"CD_MUN":3304557,"NM_MUN":"Rio de Janeiro","SIGLA_UF":"RJ","AREA_KM2":1200.329,"Participantes":11},"geometry":{"type":"Point","coordinates":[-43.45099032246508,-22.92319262449942]}},3242,3304557,"Rio de Janeiro","RJ",1200.329,11],[{"type":"Feature","properties":{"uid":3290,"CD_MUN":3502101,"NM_MUN":"Andradina","SIGLA_UF":"SP","AREA_KM2":964.226,"Participantes":1},"geometry":{"type":"Point","coordinates":[-51.32971778016221,-20.835600179919243]}},3290,3502101,"Andradina","SP",964.226,1],[{"type":"Feature","properties":{"uid":3375,"CD_MUN":3509502,"NM_MUN":"Campinas","SIGLA_UF":"SP","AREA_KM2":794.571,"Participantes":1},"geometry":{"type":"Point","coordinates":[-47.04379960559564,-22.883760077876]}},3375,3509502,"Campinas","SP",794.571,1],[{"type":"Feature","properties":{"uid":3474,"CD_MUN":3518305,"NM_MUN":"Guararema","SIGLA_UF":"SP","AREA_KM2":270.816,"Participantes":1},"geometry":{"type":"Point","coordinates":[-46.05856188211539,-23.42757010196971]}},3474,3518305,"Guararema","SP",270.816,1],[{"type":"Feature","properties":{"uid":3811,"CD_MUN":3548708,"NM_MUN":"São Bernardo do Campo","SIGLA_UF":"SP","AREA_KM2":409.532,"Participantes":1},"geometry":{"type":"Point","coordinates":[-46.55079180384767,-23.812988838551508]}},3811,3548708,"São Bernardo do Campo","SP",409.532,1],[{"type":"Feature","properties":{"uid":3824,"CD_MUN":3549904,"NM_MUN":"São José dos Campos","SIGLA_UF":"SP","AREA_KM2":1099.409,"Participantes":1},"geometry":{"type":"Point","coordinates":[-45.9285359887153,-23.090569712535455]}},3824,3549904,"São José dos Campos","SP",1099.409,1],[{"type":"Feature","properties":{"uid":3829,"CD_MUN":3550308,"NM_MUN":"São Paulo","SIGLA_UF":"SP","AREA_KM2":1521.202,"Participantes":22},"geometry":{"type":"Point","coordinates":[-46.64809660565238,-23.650080196548778]}},3829,3550308,"São Paulo","SP",1521.202,22],[{"type":"Feature","properties":{"uid":3832,"CD_MUN":3550605,"NM_MUN":"São Roque","SIGLA_UF":"SP","AREA_KM2":306.908,"Participantes":1},"geometry":{"type":"Point","coordinates":[-47.10955936574595,-23.548974546954017]}},3832,3550605,"São Roque","SP",306.908,1],[{"type":"Feature","properties":{"uid":3976,"CD_MUN":4104501,"NM_MUN":"Capanema","SIGLA_UF":"PR","AREA_KM2":419.036,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.763120287413905,-25.610768330790307]}},3976,4104501,"Capanema","PR",419.036,1],[{"type":"Feature","properties":{"uid":4005,"CD_MUN":4106902,"NM_MUN":"Curitiba","SIGLA_UF":"PR","AREA_KM2":434.892,"Participantes":24},"geometry":{"type":"Point","coordinates":[-49.28824442051379,-25.477909535202517]}},4005,4106902,"Curitiba","PR",434.892,24],[{"type":"Feature","properties":{"uid":4030,"CD_MUN":4108304,"NM_MUN":"Foz do Iguaçu","SIGLA_UF":"PR","AREA_KM2":609.192,"Participantes":3},"geometry":{"type":"Point","coordinates":[-54.48323923597226,-25.46796830958403]}},4030,4108304,"Foz do Iguaçu","PR",609.192,3],[{"type":"Feature","properties":{"uid":4032,"CD_MUN":4108403,"NM_MUN":"Francisco Beltrão","SIGLA_UF":"PR","AREA_KM2":735.111,"Participantes":2},"geometry":{"type":"Point","coordinates":[-53.132582233749204,-26.04768914731104]}},4032,4108403,"Francisco Beltrão","PR",735.111,2],[{"type":"Feature","properties":{"uid":4046,"CD_MUN":4109401,"NM_MUN":"Guarapuava","SIGLA_UF":"PR","AREA_KM2":3168.087,"Participantes":1},"geometry":{"type":"Point","coordinates":[-51.49123907939781,-25.371354662375197]}},4046,4109401,"Guarapuava","PR",3168.087,1],[{"type":"Feature","properties":{"uid":4078,"CD_MUN":4111803,"NM_MUN":"Jacarezinho","SIGLA_UF":"PR","AREA_KM2":602.528,"Participantes":1},"geometry":{"type":"Point","coordinates":[-49.9474171051667,-23.150684419676466]}},4078,4111803,"Jacarezinho","PR",602.528,1],[{"type":"Feature","properties":{"uid":4094,"CD_MUN":4113205,"NM_MUN":"Lapa","SIGLA_UF":"PR","AREA_KM2":2093.859,"Participantes":1},"geometry":{"type":"Point","coordinates":[-49.87109075734867,-25.770519634346748]}},4094,4113205,"Lapa","PR",2093.859,1],[{"type":"Feature","properties":{"uid":4102,"CD_MUN":4113700,"NM_MUN":"Londrina","SIGLA_UF":"PR","AREA_KM2":1652.569,"Participantes":2},"geometry":{"type":"Point","coordinates":[-51.110376576021096,-23.514251957270567]}},4102,4113700,"Londrina","PR",1652.569,2],[{"type":"Feature","properties":{"uid":4120,"CD_MUN":4115200,"NM_MUN":"Maringá","SIGLA_UF":"PR","AREA_KM2":487.012,"Participantes":1},"geometry":{"type":"Point","coordinates":[-51.96781260327519,-23.40094932978756]}},4120,4115200,"Maringá","PR",487.012,1],[{"type":"Feature","properties":{"uid":4127,"CD_MUN":4115705,"NM_MUN":"Matinhos","SIGLA_UF":"PR","AREA_KM2":117.899,"Participantes":2},"geometry":{"type":"Point","coordinates":[-48.55456759137518,-25.761716897379113]}},4127,4115705,"Matinhos","PR",117.899,2],[{"type":"Feature","properties":{"uid":4151,"CD_MUN":4117255,"NM_MUN":"Nova Prata do Iguaçu","SIGLA_UF":"PR","AREA_KM2":352.565,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.378307624675486,-25.590800234009137]}},4151,4117255,"Nova Prata do Iguaçu","PR",352.565,1],[{"type":"Feature","properties":{"uid":4186,"CD_MUN":4119905,"NM_MUN":"Ponta Grossa","SIGLA_UF":"PR","AREA_KM2":2054.732,"Participantes":1},"geometry":{"type":"Point","coordinates":[-50.080793332959864,-25.139698572935693]}},4186,4119905,"Ponta Grossa","PR",2054.732,1],[{"type":"Feature","properties":{"uid":4290,"CD_MUN":4127700,"NM_MUN":"Toledo","SIGLA_UF":"PR","AREA_KM2":1198.049,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.77788754591195,-24.70486062868409]}},4290,4127700,"Toledo","PR",1198.049,1],[{"type":"Feature","properties":{"uid":4377,"CD_MUN":4204202,"NM_MUN":"Chapecó","SIGLA_UF":"SC","AREA_KM2":624.846,"Participantes":6},"geometry":{"type":"Point","coordinates":[-52.6503387011512,-27.125143757264095]}},4377,4204202,"Chapecó","SC",624.846,6],[{"type":"Feature","properties":{"uid":4398,"CD_MUN":4205407,"NM_MUN":"Florianópolis","SIGLA_UF":"SC","AREA_KM2":674.844,"Participantes":13},"geometry":{"type":"Point","coordinates":[-48.50819805014117,-27.577833913876493]}},4398,4205407,"Florianópolis","SC",674.844,13],[{"type":"Feature","properties":{"uid":4401,"CD_MUN":4205506,"NM_MUN":"Fraiburgo","SIGLA_UF":"SC","AREA_KM2":549.188,"Participantes":1},"geometry":{"type":"Point","coordinates":[-50.87243224056439,-27.037814801374303]}},4401,4205506,"Fraiburgo","SC",549.188,1],[{"type":"Feature","properties":{"uid":4437,"CD_MUN":4208302,"NM_MUN":"Itapema","SIGLA_UF":"SC","AREA_KM2":58.21,"Participantes":3},"geometry":{"type":"Point","coordinates":[-48.63442695278928,-27.10858334921313]}},4437,4208302,"Itapema","SC",58.21,3],[{"type":"Feature","properties":{"uid":4445,"CD_MUN":4208955,"NM_MUN":"Jardinópolis","SIGLA_UF":"SC","AREA_KM2":68.499,"Participantes":1},"geometry":{"type":"Point","coordinates":[-52.87130602094494,-26.717195189426306]}},4445,4208955,"Jardinópolis","SC",68.499,1],[{"type":"Feature","properties":{"uid":4447,"CD_MUN":4209102,"NM_MUN":"Joinville","SIGLA_UF":"SC","AREA_KM2":1127.947,"Participantes":6},"geometry":{"type":"Point","coordinates":[-48.95140521079262,-26.244282225607027]}},4447,4209102,"Joinville","SC",1127.947,6],[{"type":"Feature","properties":{"uid":4451,"CD_MUN":4209300,"NM_MUN":"Lages","SIGLA_UF":"SC","AREA_KM2":2637.66,"Participantes":1},"geometry":{"type":"Point","coordinates":[-50.34057306529381,-28.020467334528156]}},4451,4209300,"Lages","SC",2637.66,1],[{"type":"Feature","properties":{"uid":4452,"CD_MUN":4209409,"NM_MUN":"Laguna","SIGLA_UF":"SC","AREA_KM2":333.26,"Participantes":2},"geometry":{"type":"Point","coordinates":[-48.82593048728185,-28.486420639279142]}},4452,4209409,"Laguna","SC",333.26,2],[{"type":"Feature","properties":{"uid":4587,"CD_MUN":4218707,"NM_MUN":"Tubarão","SIGLA_UF":"SC","AREA_KM2":301.485,"Participantes":1},"geometry":{"type":"Point","coordinates":[-49.03724862155106,-28.48158146246524]}},4587,4218707,"Tubarão","SC",301.485,1],[{"type":"Feature","properties":{"uid":4703,"CD_MUN":4305108,"NM_MUN":"Caxias do Sul","SIGLA_UF":"RS","AREA_KM2":1652.32,"Participantes":2},"geometry":{"type":"Point","coordinates":[-51.023673859914744,-29.102193147519966]}},4703,4305108,"Caxias do Sul","RS",1652.32,2],[{"type":"Feature","properties":{"uid":4732,"CD_MUN":4306106,"NM_MUN":"Cruz Alta","SIGLA_UF":"RS","AREA_KM2":1360.548,"Participantes":2},"geometry":{"type":"Point","coordinates":[-53.562570406920344,-28.702974615265337]}},4732,4306106,"Cruz Alta","RS",1360.548,2],[{"type":"Feature","properties":{"uid":4755,"CD_MUN":4307005,"NM_MUN":"Erechim","SIGLA_UF":"RS","AREA_KM2":429.164,"Participantes":1},"geometry":{"type":"Point","coordinates":[-52.25745165461165,-27.643244850524464]}},4755,4307005,"Erechim","RS",429.164,1],[{"type":"Feature","properties":{"uid":4809,"CD_MUN":4310207,"NM_MUN":"Ijuí","SIGLA_UF":"RS","AREA_KM2":688.982,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.89488259992852,-28.320449021736305]}},4809,4310207,"Ijuí","RS",688.982,1],[{"type":"Feature","properties":{"uid":4899,"CD_MUN":4313508,"NM_MUN":"Osório","SIGLA_UF":"RS","AREA_KM2":663.878,"Participantes":1},"geometry":{"type":"Point","coordinates":[-50.26753118258428,-29.915894019531457]}},4899,4313508,"Osório","RS",663.878,1],[{"type":"Feature","properties":{"uid":4912,"CD_MUN":4314100,"NM_MUN":"Passo Fundo","SIGLA_UF":"RS","AREA_KM2":784.407,"Participantes":2},"geometry":{"type":"Point","coordinates":[-52.45249573089878,-28.26888970160368]}},4912,4314100,"Passo Fundo","RS",784.407,2],[{"type":"Feature","properties":{"uid":4918,"CD_MUN":4314407,"NM_MUN":"Pelotas","SIGLA_UF":"RS","AREA_KM2":1608.78,"Participantes":1},"geometry":{"type":"Point","coordinates":[-52.341200671071284,-31.581114000596035]}},4918,4314407,"Pelotas","RS",1608.78,1],[{"type":"Feature","properties":{"uid":4933,"CD_MUN":4314902,"NM_MUN":"Porto Alegre","SIGLA_UF":"RS","AREA_KM2":495.39,"Participantes":18},"geometry":{"type":"Point","coordinates":[-51.16453236420641,-30.095316473256588]}},4933,4314902,"Porto Alegre","RS",495.39,18],[{"type":"Feature","properties":{"uid":4951,"CD_MUN":4315602,"NM_MUN":"Rio Grande","SIGLA_UF":"RS","AREA_KM2":2682.867,"Participantes":1},"geometry":{"type":"Point","coordinates":[-52.4035127562563,-32.217510438957525]}},4951,4315602,"Rio Grande","RS",2682.867,1],[{"type":"Feature","properties":{"uid":4972,"CD_MUN":4316907,"NM_MUN":"Santa Maria","SIGLA_UF":"RS","AREA_KM2":1780.194,"Participantes":1},"geometry":{"type":"Point","coordinates":[-53.825036883742015,-29.784921404870335]}},4972,4316907,"Santa Maria","RS",1780.194,1],[{"type":"Feature","properties":{"uid":5124,"CD_MUN":5002704,"NM_MUN":"Campo Grande","SIGLA_UF":"MS","AREA_KM2":8082.978,"Participantes":8},"geometry":{"type":"Point","coordinates":[-54.249463761092784,-20.913584324068836]}},5124,5002704,"Campo Grande","MS",8082.978,8],[{"type":"Feature","properties":{"uid":5130,"CD_MUN":5003207,"NM_MUN":"Corumbá","SIGLA_UF":"MS","AREA_KM2":64432.45,"Participantes":1},"geometry":{"type":"Point","coordinates":[-56.72225875212622,-18.722350676799117]}},5130,5003207,"Corumbá","MS",64432.45,1],[{"type":"Feature","properties":{"uid":5134,"CD_MUN":5003488,"NM_MUN":"Dois Irmãos do Buriti","SIGLA_UF":"MS","AREA_KM2":2431.609,"Participantes":1},"geometry":{"type":"Point","coordinates":[-55.362432865263365,-20.600437498490795]}},5134,5003488,"Dois Irmãos do Buriti","MS",2431.609,1],[{"type":"Feature","properties":{"uid":5136,"CD_MUN":5003702,"NM_MUN":"Dourados","SIGLA_UF":"MS","AREA_KM2":4062.236,"Participantes":1},"geometry":{"type":"Point","coordinates":[-54.83888266082311,-22.14486423594786]}},5136,5003702,"Dourados","MS",4062.236,1],[{"type":"Feature","properties":{"uid":5155,"CD_MUN":5005608,"NM_MUN":"Miranda","SIGLA_UF":"MS","AREA_KM2":5471.436,"Participantes":1},"geometry":{"type":"Point","coordinates":[-56.59623666126691,-20.12120789308237]}},5155,5005608,"Miranda","MS",5471.436,1],[{"type":"Feature","properties":{"uid":5158,"CD_MUN":5005806,"NM_MUN":"Nioaque","SIGLA_UF":"MS","AREA_KM2":3909.44,"Participantes":2},"geometry":{"type":"Point","coordinates":[-55.90145882090216,-21.100815475273098]}},5158,5005806,"Nioaque","MS",3909.44,2],[{"type":"Feature","properties":{"uid":5169,"CD_MUN":5007208,"NM_MUN":"Rio Brilhante","SIGLA_UF":"MS","AREA_KM2":3983.562,"Participantes":2},"geometry":{"type":"Point","coordinates":[-54.557812573136786,-21.69613998070712]}},5169,5007208,"Rio Brilhante","MS",3983.562,2],[{"type":"Feature","properties":{"uid":5177,"CD_MUN":5007901,"NM_MUN":"Sidrolândia","SIGLA_UF":"MS","AREA_KM2":5265.695,"Participantes":1},"geometry":{"type":"Point","coordinates":[-54.94211197230106,-21.093871213037133]}},5177,5007901,"Sidrolândia","MS",5265.695,1],[{"type":"Feature","properties":{"uid":5203,"CD_MUN":5102504,"NM_MUN":"Cáceres","SIGLA_UF":"MT","AREA_KM2":24495.51,"Participantes":1},"geometry":{"type":"Point","coordinates":[-57.833608038241536,-16.53740168992541]}},5203,5102504,"Cáceres","MT",24495.51,1],[{"type":"Feature","properties":{"uid":5221,"CD_MUN":5103403,"NM_MUN":"Cuiabá","SIGLA_UF":"MT","AREA_KM2":4327.448,"Participantes":10},"geometry":{"type":"Point","coordinates":[-55.818231789484834,-15.592792334833979]}},5221,5103403,"Cuiabá","MT",4327.448,10],[{"type":"Feature","properties":{"uid":5248,"CD_MUN":5105507,"NM_MUN":"Vila Bela da Santíssima Trindade","SIGLA_UF":"MT","AREA_KM2":13484.71,"Participantes":1},"geometry":{"type":"Point","coordinates":[-59.9908315945846,-15.190622406435098]}},5248,5105507,"Vila Bela da Santíssima Trindade","MT",13484.71,1],[{"type":"Feature","properties":{"uid":5277,"CD_MUN":5106752,"NM_MUN":"Pontes e Lacerda","SIGLA_UF":"MT","AREA_KM2":8545.292,"Participantes":1},"geometry":{"type":"Point","coordinates":[-59.45774229708403,-15.51682264198064]}},5277,5106752,"Pontes e Lacerda","MT",8545.292,1],[{"type":"Feature","properties":{"uid":5340,"CD_MUN":5201108,"NM_MUN":"Anápolis","SIGLA_UF":"GO","AREA_KM2":935.672,"Participantes":1},"geometry":{"type":"Point","coordinates":[-48.97288603197103,-16.290579768705076]}},5340,5201108,"Anápolis","GO",935.672,1],[{"type":"Feature","properties":{"uid":5419,"CD_MUN":5208707,"NM_MUN":"Goiânia","SIGLA_UF":"GO","AREA_KM2":729.296,"Participantes":10},"geometry":{"type":"Point","coordinates":[-49.27378452372326,-16.643550884377632]}},5419,5208707,"Goiânia","GO",729.296,10],[{"type":"Feature","properties":{"uid":5421,"CD_MUN":5208905,"NM_MUN":"Goiás","SIGLA_UF":"GO","AREA_KM2":3108.423,"Participantes":1},"geometry":{"type":"Point","coordinates":[-50.2425719077285,-15.847096203263165]}},5421,5208905,"Goiás","GO",3108.423,1],[{"type":"Feature","properties":{"uid":5482,"CD_MUN":5214606,"NM_MUN":"Niquelândia","SIGLA_UF":"GO","AREA_KM2":9846.293,"Participantes":1},"geometry":{"type":"Point","coordinates":[-48.401416712183114,-14.499089222441562]}},5482,5214606,"Niquelândia","GO",9846.293,1],[{"type":"Feature","properties":{"uid":5571,"CD_MUN":5300108,"NM_MUN":"Brasília","SIGLA_UF":"DF","AREA_KM2":5760.784,"Participantes":65},"geometry":{"type":"Point","coordinates":[-47.79685086583529,-15.781166218213121]}},5571,5300108,"Brasília","DF",5760.784,65]],"fields":[{"name":"_geojson","type":"geojson","format":"","analyzerType":"GEOMETRY"},{"name":"uid","type":"integer","format":"","analyzerType":"INT"},{"name":"CD_MUN","type":"integer","format":"","analyzerType":"INT"},{"name":"NM_MUN","type":"string","format":"","analyzerType":"STRING"},{"name":"SIGLA_UF","type":"string","format":"","analyzerType":"STRING"},{"name":"AREA_KM2","type":"real","format":"","analyzerType":"FLOAT"},{"name":"Participantes","type":"integer","format":"","analyzerType":"INT"}],"type":"","metadata":{"id":"-729utq","format":"geojson","label":"Educadores populares - Seminários.geojson"},"disableDataOperation":false}}];
+            const config = {"version":"v1","config":{"visState":{"filters":[],"layers":[{"id":"y8ielia","type":"point","config":{"dataId":"-729utq","columnMode":"geojson","label":"Educadores populares - Seminários","color":[179,173,158],"highlightColor":[252,242,26,255],"columns":{"geojson":"_geojson"},"isVisible":true,"visConfig":{"radius":10,"fixedRadius":false,"opacity":0.8,"outline":false,"thickness":0.5,"strokeColor":null,"colorRange":{"colors":["#FFC300","#EF9100","#D6610A","#B72F15","#880030","#4C0035"],"name":"Global Warming","type":"sequential","category":"Uber","reversed":true},"strokeColorRange":{"name":"Global Warming","type":"sequential","category":"Uber","colors":["#4C0035","#880030","#B72F15","#D6610A","#EF9100","#FFC300"]},"radiusRange":[25,50],"filled":true,"billboard":true,"allowHover":true,"showNeighborOnHover":false,"showHighlightColor":true},"hidden":false,"textLabel":[{"field":null,"color":[255,255,255],"size":18,"weight":400,"offset":[0,0],"anchor":"start","alignment":"center","outlineWidth":0,"outlineColor":[255,0,0,255],"background":false,"backgroundColor":[0,0,200,255]}]},"visualChannels":{"colorField":{"name":"Participantes","type":"integer"},"colorScale":"quantile","strokeColorField":null,"strokeColorScale":"quantile","sizeField":{"name":"Participantes","type":"integer"},"sizeScale":"sqrt"}}],"effects":[],"annotations":[],"interactionConfig":{"tooltip":{"fieldsToShow":{"-729utq":[{"name":"NM_MUN","format":null},{"name":"SIGLA_UF","format":null},{"name":"Participantes","format":null}]},"compareMode":false,"compareType":"absolute","enabled":true},"brush":{"size":0.5,"enabled":false},"geocoder":{"limitSearch":false,"enabled":false},"coordinate":{"enabled":false}},"layerBlending":"normal","overlayBlending":"normal","splitMaps":[],"animationConfig":{"currentTime":null,"speed":1},"editor":{"features":[],"visible":true},"layerOrder":["y8ielia"]},"mapState":{"bearing":0,"dragRotate":false,"latitude":-11.021418167415096,"longitude":-64.41325112014127,"pitch":0,"zoom":3.5585441946257377,"isSplit":false,"isViewportSynced":true,"isZoomLocked":false,"splitMapViewports":[],"maxPitch":60,"mapSplitMode":"SINGLE_MAP","swipeComparePercentage":50},"mapStyle":{"styleType":"voyager","topLayerGroups":{},"visibleLayerGroups":{"label":true,"road":false,"border":true,"building":false,"water":true,"land":true,"3d building":false},"threeDBuildingColor":[233.71862868880427,230.92517894351974,226.26942936804556],"backgroundColor":[0,0,0],"mapStyles":{}},"uiState":{"mapControls":{"mapLegend":{"active":false}},"locale":"en"}}};
+
+            const loadedData = keplerGl.KeplerGlSchema.load(
+              datasets,
+              config
+            );
+
+            // For some reason Kepler overwrites the config without extra wait time
+            window.setTimeout(() => {
+              store.dispatch(
+                keplerGl.addDataToMap({
+                  datasets: loadedData.datasets,
+                  config: loadedData.config,
+                  options: {
+                    centerMap: false,
+                  },
+                })
+              );
+            }, 500);
+          }(KeplerGl, store))
+        </script>
+      </body>
+    </html>
+  
