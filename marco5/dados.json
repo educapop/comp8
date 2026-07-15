@@ -1,17 +1,177 @@
 [
     {
-        "estado":"Acre",
-        "descricao":"Art. 1º ...",
-        "link":"https://..."
+        "UF":"Instituição dos Fóruns",
+        "estado":"Institui dos fóruns", 
+        "descricao":"O MINISTRO DE ESTADO DA SECRETARIA-GERAL DA PRESIDÊNCIA DA REPÚBLICA, no uso da atribuição que lhe confere o art. 87, parágrafo único, inciso IV, da Constituição Federal, e tendo em vista o disposto nos artigos 1º, inciso II, e 11, ambos do Anexo I, do Decreto nº 11.363, de 1º de janeiro de 2023, resolve:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-sg/pr-n-188-de-22-de-outubro-de-2024-591925612"
     },
     {
-        "estado":"Alagoas",
-        "descricao":"Art. 1º ...",
-        "link":"https://..."
+        "UF":"AC",
+        "estado":"Estado do Acre:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Acre:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-27-de-21-de-marco-de-2025-619349740"
     },
     {
-        "estado":"Amapá",
-        "descricao":"Art. 1º ...",
-        "link":"https://..."
+        "UF":"AL",
+        "estado":"Estado de Alagoas:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Alagoas:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-10-de-20-de-marco-de-2025-619234048"
+    },
+    {
+        "UF":"AM",
+        "estado":"Estado do Amazonas:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Amazonas:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-25-de-21-de-marco-de-2025-619347131"
+    },
+    {
+        "UF":"AP",
+        "estado":"Estado do Amapá:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Amapá:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-35-de-21-de-marco-de-2025-619322351"
+    },
+    {
+        "UF":"BA",
+        "estado":"Estado da Bahia:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado da Bahia:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-24-de-21-de-marco-de-2025-619354688"
+    },
+    {
+        "UF":"CE",
+        "estado":"Estado do Ceará:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Ceará:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-36-de-21-de-marco-de-2025-619362718"
+    },
+    {
+        "UF":"DF",
+        "estado":"atuação no Distrito Federal:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Distrito Federal:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-17-de-21-de-marco-de-2025-619368744"
+    },
+    {
+        "UF":"ES",
+        "estado":"Estado do Espírito Santo:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Espírito Santo:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-22-de-21-de-marco-de-2025-619361778"
+    },
+    {
+        "UF":"GO",
+        "estado":"Estado de Goiás:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Goiás:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-16-de-21-de-marco-de-2025-619354767"
+    },
+    {
+        "UF":"MA",
+        "estado":"Estado do Maranhão:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Maranhão:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-18-de-21-de-marco-de-2025-619379592"
+    },
+    {
+        "UF":"MG",
+        "estado":"Estado de Minas Gerais:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Minas Gerais:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-21-de-21-de-marco-de-2025-619326173"
+    },
+    {
+        "UF":"MS",
+        "estado":"Estado de Mato Grosso do Sul:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Mato Grosso do Sul:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-14-de-21-de-marco-de-2025-619376179"
+    },
+    {
+        "UF":"MT",
+        "estado":"Estado do Mato Grosso.", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Mato Grosso.", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-13-de-21-de-marco-de-2025-619331248"
+    },
+    {
+        "UF":"PA",
+        "estado":"Estado do Pará:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Pará:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-34-de-21-de-marco-de-2025-619379457"
+    },
+    {
+        "UF":"PB",
+        "estado":"Estado da Paraíba:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado da Paraíba:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-33-de-21-de-marco-de-2025-619382824"
+    },
+    {
+        "UF":"PE",
+        "estado":"Estado de Pernambuco:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Pernambuco:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-28-de-21-de-marco-de-2025-619338937"
+    },
+    {
+        "UF":"PI",
+        "estado":"Estado do Piauí:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Piauí:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-20-de-21-de-marco-de-2025-619362808"
+    },
+    {
+        "UF":"PR",
+        "estado":"Estado do Paraná:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Paraná:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-31-de-21-de-marco-de-2025-619347048"
+    },
+    {
+        "UF":"RJ",
+        "estado":"Estado do Rio de Janeiro:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Rio de Janeiro:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-19-de-21-de-marco-de-2025-619328335"
+    },
+    {
+        "UF":"RN",
+        "estado":"Estado do Rio Grande do Norte:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Rio Grande do Norte:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-26-de-21-de-marco-de-2025-619337963"
+    },
+    {
+        "UF":"RO",
+        "estado":"Estado de Rondônia:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Rondônia:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-29-de-21-de-marco-de-2025-619320744"
+    },
+    {
+        "UF":"RR",
+        "estado":"Estado de Roraima:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Roraima:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-32-de-21-de-marco-de-2025-619337889"
+    },
+    {
+        "UF":"RS",
+        "estado":"Estado do Rio Grande do Sul", 
+        "descricao":"Art. 1º Designar os seguintes membros de organizações e movimentos sociais 
+    para compor oFórum de Participação Social com atuação no Estado do Rio Grande do Sul:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-37-de-21-de-marco-de-2025-619328251"
+    },
+    {
+        "UF":"RS-2024",
+        "estado":"Estado do Rio Grande do Sul 2024 ", 
+        "descricao":"Art. 1º Fica instituído oFórum de Participação Social no Estado do Rio Grande do Sul (FPS-RS), que atuará em conjunto com o Conselho de Participação Social da Presidência da República, com a finalidade de articular a sociedade civil para a participação social com educação popular, de acompanhar e promover o controle social, e de apoiar a organização de usuárias (os) e beneficiárias (os) na formulação de propostas e no acompanhamento das políticas públicas do governo federal.", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-sg/pr-n-181-de-28-de-maio-de-2024-562750610"
+    },
+    {
+        "UF":"SC",
+        "estado":"Estado de Santa Catarina:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Santa Catarina:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-30-de-21-de-marco-de-2025-619344965"
+    },
+    {
+        "UF":"SE",
+        "estado":"Estado de Sergipe:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de Sergipe:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-23-de-21-de-marco-de-2025-619385995"
+    },
+    {
+        "UF":"SP",
+        "estado":"Estado de São Paulo:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado de São Paulo:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-12-de-21-de-marco-de-2025-619386074"
+    },
+    {
+        "UF":"TO",
+        "estado":"Estado do Tocantins:", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Tocantins:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-15-de-21-de-marco-de-2025-619326252"
     }
 ]
