@@ -55,3 +55,8 @@ h1{
 .content a:hover{
     text-decoration:underline;
 }
+
+#mapa{
+    width:100%;
+    height:85vh;
+}
