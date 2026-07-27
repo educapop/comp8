@@ -1,16 +1,16 @@
 [
-    {
+"{
         "UF":"AC",
         "estado":"Acre", 
         "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Acre:", 
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-27-de-21-de-marco-de-2025-619349740"
         "Cidade":"Rio Branco",
         "Data":"29 de abril", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"35", 
+        "Participantes":75, 
+        "Movimentos":35, 
         "Local":"Centro da Juventude", 
         "Datap":"2026-4-29", 
-        "Endereço":"Rua Palmeiral, bairro Cidade Nova, Rio Branco - AC" 
+        "Endereço":"Rua Palmeiral, bairro Cidade Nova, Rio Branco - AC", 
     },
     {
         "UF":"AL",
@@ -19,11 +19,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-10-de-20-de-marco-de-2025-619234048"
         "Cidade":"Maceió",
         "Data":"15 de maio", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"25", 
+        "Participantes":150, 
+        "Movimentos":25, 
         "Local":"IFAL - Campus Benedito Bentes", 
         "Datap":"2026-5-15", 
-        "Endereço":"Avenida Benedito Bentes, Benedito Bentes II, Maceió/AL" 
+        "Endereço":"Avenida Benedito Bentes, Benedito Bentes II, Maceió/AL", 
     },
     {
         "UF":"AM",
@@ -32,11 +32,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-25-de-21-de-marco-de-2025-619347131"
         "Cidade":"Manaus",
         "Data":"03 de julho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"26", 
+        "Participantes":110, 
+        "Movimentos":26, 
         "Local":"SESI Clube do Trabalhador", 
         "Datap":"2026-7-3", 
-        "Endereço":"Av. Cosme Ferreira, 7399, São José I" 
+        "Endereço":"Av. Cosme Ferreira, 7399, São José I", 
     },
     {
         "UF":"AP",
@@ -45,11 +45,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-35-de-21-de-marco-de-2025-619322351"
         "Cidade":"Macapá",
         "Data":"22 e 23 de janeiro", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"31", 
+        "Participantes":120, 
+        "Movimentos":31, 
         "Local":"Escola Estadual Maria Neuza Carmo de Souza", 
         "Datap":"2026-1-22", 
-        "Endereço":"Rua Milton de Souza Correia, 500, Bairro Jardim Felicidade 1, Zona Norte de Macapá" 
+        "Endereço":"Rua Milton de Souza Correia, 500, Bairro Jardim Felicidade 1, Zona Norte de Macapá", 
     },
     {
         "UF":"BA",
@@ -58,11 +58,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-24-de-21-de-marco-de-2025-619354688"
         "Cidade":"Salvador",
         "Data":"29 e 30 de maio", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"41", 
+        "Participantes":245, 
+        "Movimentos":41, 
         "Local":"Centro Social Urbano (CSU) de Pernambués", 
         "Datap":"2026-5-29", 
-        "Endereço":"Rua Thomaz Gonzaga, 150 – Bairro Pernambués, Salvador/BA" 
+        "Endereço":"Rua Thomaz Gonzaga, 150 – Bairro Pernambués, Salvador/BA", 
     },
     {
         "UF":"CE",
@@ -71,11 +71,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-36-de-21-de-marco-de-2025-619362718"
         "Cidade":"Fortaleza",
         "Data":"16 e 17 de abril", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"15", 
+        "Participantes":250, 
+        "Movimentos":15, 
         "Local":"CUCA Pici ", 
         "Datap":"2026-4-16", 
-        "Endereço":"(Rua Coronel Matos Dourado, nº 1499, Bairro Pici)" 
+        "Endereço":"(Rua Coronel Matos Dourado, nº 1499, Bairro Pici)", 
     },
     {
         "UF":"DF",
@@ -84,11 +84,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-17-de-21-de-marco-de-2025-619368744"
         "Cidade":"Brasília",
         "Data":"13 de dezembro de 2025", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"18", 
+        "Participantes":60, 
+        "Movimentos":18, 
         "Local":"Sol Nascente - Feira do Produtor ", 
         "Datap":"2025-12-13", 
-        "Endereço":"St. Hab. Vicente Pires, Avenida Principal - Vicente Pires, Brasília - DF" 
+        "Endereço":"St. Hab. Vicente Pires, Avenida Principal - Vicente Pires, Brasília - DF", 
     },
     {
         "UF":"ES",
@@ -97,8 +97,8 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-22-de-21-de-marco-de-2025-619361778"
         "Cidade":"Vitória",
         "Data":"27 de fevereiro", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"15", 
+        "Participantes":120, 
+        "Movimentos":15, 
         "Local":"Praça Antônio Ormindo Trancoso ", 
         "Datap":"2026-2-27", 
         "Endereço":"Rua Bandeirantes, 1115 – Ilha das Caieiras / Orla da Grande São Pedro" 
@@ -110,11 +110,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-16-de-21-de-marco-de-2025-619354767"
         "Cidade":"Goiânia",
         "Data":"26 de fevereiro", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"20", 
+        "Participantes":100, 
+        "Movimentos":20, 
         "Local":"Feira do Setor Morada do Sol", 
         "Datap":"2026-2-26", 
-        "Endereço":"(Rua Aurora, nº 329)" 
+        "Endereço":"(Rua Aurora, nº 329)", 
     },
     {
         "UF":"MA",
@@ -123,11 +123,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-18-de-21-de-marco-de-2025-619379592"
         "Cidade":"São Luis",
         "Data":"11 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"26", 
+        "Participantes":115, 
+        "Movimentos":26, 
         "Local":"Paróquia São João Calábria ", 
         "Datap":"2026-6-11", 
-        "Endereço":"Avenida Principal, s/n, Cidade Operária" 
+        "Endereço":"Avenida Principal, s/n, Cidade Operária", 
     },
     {
         "UF":"MG",
@@ -136,11 +136,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-21-de-21-de-marco-de-2025-619326173"
         "Cidade":"Belo Horizonte",
         "Data":"21 e 22 de abril", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"25", 
+        "Participantes":280, 
+        "Movimentos":25, 
         "Local":"Campo do Najá", 
         "Datap":"2026-4-21", 
-        "Endereço":"Rua Castelo Novo, 1001 - Belo Horizonte/MG" 
+        "Endereço":"Rua Castelo Novo, 1001 - Belo Horizonte/MG", 
     },
     {
         "UF":"MS",
@@ -149,11 +149,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-14-de-21-de-marco-de-2025-619376179"
         "Cidade":"Campo Grande",
         "Data":"5 de fevereiro", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"20", 
+        "Participantes":300, 
+        "Movimentos":20, 
         "Local":"CEU das Artes (Parque Lageado)", 
         "Datap":"2026-2-5", 
-        "Endereço":"Rua Maria Del Horno Samper, nº 981" 
+        "Endereço":"Rua Maria Del Horno Samper, nº 981", 
     },
     {
         "UF":"MT",
@@ -162,11 +162,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-13-de-21-de-marco-de-2025-619331248"
         "Cidade":"Cuiabá",
         "Data":"01 de julho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"20", 
+        "Participantes":66, 
+        "Movimentos":20, 
         "Local":"Praça do Restaurante Universitário UFMT (Praça do Verde)", 
         "Datap":"2026-7-1", 
-        "Endereço":"Avenida Fernando Corrêa da Costa, nº 2367, Bairro Boa Esperança" 
+        "Endereço":"Avenida Fernando Corrêa da Costa, nº 2367, Bairro Boa Esperança"
     },
     {
         "UF":"PA",
@@ -175,11 +175,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-34-de-21-de-marco-de-2025-619379457"
         "Cidade":"Belém",
         "Data":"12 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"31", 
+        "Participantes":180, 
+        "Movimentos":31, 
         "Local":"Parque da Cidade (Portão 9 )", 
         "Datap":"2026-6-12", 
-        "Endereço":"Avenida Senador Lemos, Souza Rebouças" 
+        "Endereço":"Avenida Senador Lemos, Souza Rebouças"
     },
     {
         "UF":"PB",
@@ -188,11 +188,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-33-de-21-de-marco-de-2025-619382824"
         "Cidade":"João Pessoa",
         "Data":"23 de abril", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"37", 
+        "Participantes":150, 
+        "Movimentos":37, 
         "Local":"ECIT Mestre Sivuca ", 
         "Datap":"2026-4-23", 
-        "Endereço":"(Rua Flor de Íris, 399, Mangabeira, João Pessoa - PB" 
+        "Endereço":"(Rua Flor de Íris, 399, Mangabeira, João Pessoa - PB", 
     },
     {
         "UF":"PE",
@@ -201,11 +201,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-28-de-21-de-marco-de-2025-619338937"
         "Cidade":"Recife",
         "Data":"24 e 25 de abril", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"32", 
+        "Participantes":248, 
+        "Movimentos":32, 
         "Local":"ETE Miguel Batista ", 
         "Datap":"2026-4-24", 
-        "Endereço":"Av. Norte Miguel Arraes de Alencar, 7.847 - Macaxeira, Recife - PE" 
+        "Endereço":"Av. Norte Miguel Arraes de Alencar, 7.847 - Macaxeira, Recife - PE", 
     },
     {
         "UF":"PI",
@@ -214,11 +214,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-20-de-21-de-marco-de-2025-619362808"
         "Cidade":"Teresina",
         "Data":"6 e 7 de março", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"35", 
+        "Participantes":612, 
+        "Movimentos":35, 
         "Local":" Ginásio Arena Verdão", 
         "Datap":"2026-3-6", 
-        "Endereço":"R. Rui Barbosa - Centro (Norte), Teresina - PI, 64000-340" 
+        "Endereço":"R. Rui Barbosa - Centro (Norte), Teresina - PI, 64000-340", 
     },
     {
         "UF":"PR",
@@ -227,11 +227,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-31-de-21-de-marco-de-2025-619347048"
         "Cidade":"Curitiba",
         "Data":"8 de maio", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"30", 
+        "Participantes":400, 
+        "Movimentos":30, 
         "Local":" UFPR Campus Rebouças ", 
         "Datap":"2026-5-8", 
-        "Endereço":"(Av. Sete de Setembro, 2645, Curitiba - PR)" 
+        "Endereço":"(Av. Sete de Setembro, 2645, Curitiba - PR)", 
     },
     {
         "UF":"RJ",
@@ -240,11 +240,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-19-de-21-de-marco-de-2025-619328335"
         "Cidade":"Rio de Janeiro",
         "Data":"20 de março", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"23", 
+        "Participantes":150, 
+        "Movimentos":23, 
         "Local":"FAETEC Manguinhos", 
         "Datap":"2026-3-20", 
-        "Endereço":"Av. Dom Hélder Câmara, 1184 - Benfica, Rio de Janeiro - RJ, 20973-002" 
+        "Endereço":"Av. Dom Hélder Câmara, 1184 - Benfica, Rio de Janeiro - RJ, 20973-002", 
     },
     {
         "UF":"RN",
@@ -253,11 +253,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-26-de-21-de-marco-de-2025-619337963"
         "Cidade":"Natal",
         "Data":"13 e 14 de março", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"20", 
+        "Participantes":200, 
+        "Movimentos":20, 
         "Local":"IERN Bom Pastor", 
         "Datap":"2026-3-13", 
-        "Endereço":"Avenida Capitão-Mor Gouveia, 9688, no bairro Bom Pastor" 
+        "Endereço":"Avenida Capitão-Mor Gouveia, 9688, no bairro Bom Pastor", 
     },
     {
         "UF":"RO",
@@ -266,11 +266,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-29-de-21-de-marco-de-2025-619320744"
         "Cidade":"Porto Velho",
         "Data":"30 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"18", 
+        "Participantes":40, 
+        "Movimentos":18, 
         "Local":"Colégio Marcelo Cândia ", 
         "Datap":"2026-6-30", 
-        "Endereço":"Subsede 01, Rua Petrolina, nº 10.804, Bairro Mariana, Zona Leste de Porto Velho (RO)" 
+        "Endereço":"Subsede 01, Rua Petrolina, nº 10.804, Bairro Mariana, Zona Leste de Porto Velho (RO)", 
     },
     {
         "UF":"RR",
@@ -279,11 +279,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-32-de-21-de-marco-de-2025-619337889"
         "Cidade":"Boa Vista",
         "Data":"02 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"16", 
+        "Participantes":120, 
+        "Movimentos":16, 
         "Local":"Casa do Cidadão (Casa Amarela)", 
         "Datap":"2026-6-2", 
-        "Endereço":"Rua Izídio Galdino da Silva, nº 2469, bairro Senador Hélio Campos." 
+        "Endereço":"Rua Izídio Galdino da Silva, nº 2469, bairro Senador Hélio Campos.", 
     },
     {
         "UF":"RS",
@@ -292,11 +292,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-37-de-21-de-marco-de-2025-619328251"
         "Cidade":"Porto Alegre",
         "Data":"19 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"22", 
+        "Participantes":250, 
+        "Movimentos":22, 
         "Local":"Praça da Alfândega", 
         "Datap":"2026-6-19", 
-        "Endereço":"Rua Siqueira Campos, 2529 – Centro Histórico, Porto Alegre - RS" 
+        "Endereço":"Rua Siqueira Campos, 2529 – Centro Histórico, Porto Alegre - RS", 
     },
     {
         "UF":"SC",
@@ -305,11 +305,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-30-de-21-de-marco-de-2025-619344965"
         "Cidade":"Florianópolis",
         "Data":"18 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"16", 
+        "Participantes":100, 
+        "Movimentos":16, 
         "Local":"Arena Floripa", 
         "Datap":"2026-6-18", 
-        "Endereço":"Parque Metropolitano Francisco Dias Velho, S/n, Florianópolis - SC, 88010-400" 
+        "Endereço":"Parque Metropolitano Francisco Dias Velho, S/n, Florianópolis - SC, 88010-400", 
     },
     {
         "UF":"SE",
@@ -318,11 +318,11 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-23-de-21-de-marco-de-2025-619385995"
         "Cidade":"São Cristovão",
         "Data":"12 de março", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"41", 
+        "Participantes":900, 
+        "Movimentos":41, 
         "Local":"Colégio Estadual Professora Glorita Portugal", 
         "Datap":"2026-3-12", 
-        "Endereço":"Rua 62, s/n, bairro Eduardo Gomes / Rosa Elze" 
+        "Endereço":"Rua 62, s/n, bairro Eduardo Gomes / Rosa Elze", 
     },
     {
         "UF":"SP",
@@ -331,10 +331,12 @@
         "link":"https://www.in.gov.br/web/dou/-/portaria-n-12-de-21-de-marco-de-2025-619386074"
         "Cidade":"São Paulo",
         "Data":"26 e 27 de junho", 
-        "Participantes":"<<participa>>", 
-        "Movimentos":"9", 
-        "Local":"Zona Leste: Realizado no CEU Jambeiro / Zona Sul: Realizado na Praça do Campo Limpo ", 
+        "Participantes":50, 
+        "Movimentos":9, 
+        "Local":"Zona Leste: Realizado no CEU Jambeiro 
+    Zona Sul: Realizado na Praça do Campo Limpo ", 
         "Datap":"2026-6-26", 
-        "Endereço":"Zona Leste: Avenida José Pinheiro Borges, 60, Guaianases / Zona Sul: Rua Dr. Joviano Pacheco de Aguirre, 30, Jardim Bom Refúgio" 
+        "Endereço":"Zona Leste: Avenida José Pinheiro Borges, 60, Guaianases.
+    Zona Sul: Rua Dr. Joviano Pacheco de Aguirre, 30, Jardim Bom Refúgio", 
     }
 ]
