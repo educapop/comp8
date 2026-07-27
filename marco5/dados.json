@@ -1,5 +1,5 @@
 [
-"{
+    {
         "UF":"AC",
         "estado":"Acre", 
         "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Acre:", 
@@ -10,7 +10,7 @@
         "Movimentos":35, 
         "Local":"Centro da Juventude", 
         "Datap":"2026-4-29", 
-        "Endereço":"Rua Palmeiral, bairro Cidade Nova, Rio Branco - AC", 
+        "Endereço":"Rua Palmeiral, bairro Cidade Nova, Rio Branco - AC" 
     },
     {
         "UF":"AL",
@@ -23,7 +23,7 @@
         "Movimentos":25, 
         "Local":"IFAL - Campus Benedito Bentes", 
         "Datap":"2026-5-15", 
-        "Endereço":"Avenida Benedito Bentes, Benedito Bentes II, Maceió/AL", 
+        "Endereço":"Avenida Benedito Bentes, Benedito Bentes II, Maceió/AL" 
     },
     {
         "UF":"AM",
@@ -36,7 +36,7 @@
         "Movimentos":26, 
         "Local":"SESI Clube do Trabalhador", 
         "Datap":"2026-7-3", 
-        "Endereço":"Av. Cosme Ferreira, 7399, São José I", 
+        "Endereço":"Av. Cosme Ferreira, 7399, São José I" 
     },
     {
         "UF":"AP",
@@ -49,7 +49,7 @@
         "Movimentos":31, 
         "Local":"Escola Estadual Maria Neuza Carmo de Souza", 
         "Datap":"2026-1-22", 
-        "Endereço":"Rua Milton de Souza Correia, 500, Bairro Jardim Felicidade 1, Zona Norte de Macapá", 
+        "Endereço":"Rua Milton de Souza Correia, 500, Bairro Jardim Felicidade 1, Zona Norte de Macapá" 
     },
     {
         "UF":"BA",
@@ -62,7 +62,7 @@
         "Movimentos":41, 
         "Local":"Centro Social Urbano (CSU) de Pernambués", 
         "Datap":"2026-5-29", 
-        "Endereço":"Rua Thomaz Gonzaga, 150 – Bairro Pernambués, Salvador/BA", 
+        "Endereço":"Rua Thomaz Gonzaga, 150 – Bairro Pernambués, Salvador/BA" 
     },
     {
         "UF":"CE",
@@ -75,7 +75,7 @@
         "Movimentos":15, 
         "Local":"CUCA Pici ", 
         "Datap":"2026-4-16", 
-        "Endereço":"(Rua Coronel Matos Dourado, nº 1499, Bairro Pici)", 
+        "Endereço":"(Rua Coronel Matos Dourado, nº 1499, Bairro Pici)" 
     },
     {
         "UF":"DF",
@@ -88,7 +88,7 @@
         "Movimentos":18, 
         "Local":"Sol Nascente - Feira do Produtor ", 
         "Datap":"2025-12-13", 
-        "Endereço":"St. Hab. Vicente Pires, Avenida Principal - Vicente Pires, Brasília - DF", 
+        "Endereço":"St. Hab. Vicente Pires, Avenida Principal - Vicente Pires, Brasília - DF" 
     },
     {
         "UF":"ES",
@@ -114,7 +114,7 @@
         "Movimentos":20, 
         "Local":"Feira do Setor Morada do Sol", 
         "Datap":"2026-2-26", 
-        "Endereço":"(Rua Aurora, nº 329)", 
+        "Endereço":"(Rua Aurora, nº 329)" 
     },
     {
         "UF":"MA",
@@ -127,7 +127,7 @@
         "Movimentos":26, 
         "Local":"Paróquia São João Calábria ", 
         "Datap":"2026-6-11", 
-        "Endereço":"Avenida Principal, s/n, Cidade Operária", 
+        "Endereço":"Avenida Principal, s/n, Cidade Operária" 
     },
     {
         "UF":"MG",
@@ -140,7 +140,7 @@
         "Movimentos":25, 
         "Local":"Campo do Najá", 
         "Datap":"2026-4-21", 
-        "Endereço":"Rua Castelo Novo, 1001 - Belo Horizonte/MG", 
+        "Endereço":"Rua Castelo Novo, 1001 - Belo Horizonte/MG" 
     },
     {
         "UF":"MS",
@@ -153,7 +153,7 @@
         "Movimentos":20, 
         "Local":"CEU das Artes (Parque Lageado)", 
         "Datap":"2026-2-5", 
-        "Endereço":"Rua Maria Del Horno Samper, nº 981", 
+        "Endereço":"Rua Maria Del Horno Samper, nº 981" 
     },
     {
         "UF":"MT",
@@ -166,7 +166,7 @@
         "Movimentos":20, 
         "Local":"Praça do Restaurante Universitário UFMT (Praça do Verde)", 
         "Datap":"2026-7-1", 
-        "Endereço":"Avenida Fernando Corrêa da Costa, nº 2367, Bairro Boa Esperança"
+        "Endereço":"Avenida Fernando Corrêa da Costa, nº 2367, Bairro Boa Esperança" 
     },
     {
         "UF":"PA",
@@ -179,7 +179,7 @@
         "Movimentos":31, 
         "Local":"Parque da Cidade (Portão 9 )", 
         "Datap":"2026-6-12", 
-        "Endereço":"Avenida Senador Lemos, Souza Rebouças"
+        "Endereço":"Avenida Senador Lemos, Souza Rebouças" 
     },
     {
         "UF":"PB",
@@ -192,7 +192,7 @@
         "Movimentos":37, 
         "Local":"ECIT Mestre Sivuca ", 
         "Datap":"2026-4-23", 
-        "Endereço":"(Rua Flor de Íris, 399, Mangabeira, João Pessoa - PB", 
+        "Endereço":"(Rua Flor de Íris, 399, Mangabeira, João Pessoa - PB" 
     },
     {
         "UF":"PE",
@@ -205,7 +205,7 @@
         "Movimentos":32, 
         "Local":"ETE Miguel Batista ", 
         "Datap":"2026-4-24", 
-        "Endereço":"Av. Norte Miguel Arraes de Alencar, 7.847 - Macaxeira, Recife - PE", 
+        "Endereço":"Av. Norte Miguel Arraes de Alencar, 7.847 - Macaxeira, Recife - PE" 
     },
     {
         "UF":"PI",
@@ -218,7 +218,7 @@
         "Movimentos":35, 
         "Local":" Ginásio Arena Verdão", 
         "Datap":"2026-3-6", 
-        "Endereço":"R. Rui Barbosa - Centro (Norte), Teresina - PI, 64000-340", 
+        "Endereço":"R. Rui Barbosa - Centro (Norte), Teresina - PI, 64000-340" 
     },
     {
         "UF":"PR",
@@ -231,7 +231,7 @@
         "Movimentos":30, 
         "Local":" UFPR Campus Rebouças ", 
         "Datap":"2026-5-8", 
-        "Endereço":"(Av. Sete de Setembro, 2645, Curitiba - PR)", 
+        "Endereço":"(Av. Sete de Setembro, 2645, Curitiba - PR)" 
     },
     {
         "UF":"RJ",
@@ -244,7 +244,7 @@
         "Movimentos":23, 
         "Local":"FAETEC Manguinhos", 
         "Datap":"2026-3-20", 
-        "Endereço":"Av. Dom Hélder Câmara, 1184 - Benfica, Rio de Janeiro - RJ, 20973-002", 
+        "Endereço":"Av. Dom Hélder Câmara, 1184 - Benfica, Rio de Janeiro - RJ, 20973-002" 
     },
     {
         "UF":"RN",
@@ -257,7 +257,7 @@
         "Movimentos":20, 
         "Local":"IERN Bom Pastor", 
         "Datap":"2026-3-13", 
-        "Endereço":"Avenida Capitão-Mor Gouveia, 9688, no bairro Bom Pastor", 
+        "Endereço":"Avenida Capitão-Mor Gouveia, 9688, no bairro Bom Pastor" 
     },
     {
         "UF":"RO",
@@ -270,7 +270,7 @@
         "Movimentos":18, 
         "Local":"Colégio Marcelo Cândia ", 
         "Datap":"2026-6-30", 
-        "Endereço":"Subsede 01, Rua Petrolina, nº 10.804, Bairro Mariana, Zona Leste de Porto Velho (RO)", 
+        "Endereço":"Subsede 01, Rua Petrolina, nº 10.804, Bairro Mariana, Zona Leste de Porto Velho (RO)" 
     },
     {
         "UF":"RR",
@@ -283,7 +283,7 @@
         "Movimentos":16, 
         "Local":"Casa do Cidadão (Casa Amarela)", 
         "Datap":"2026-6-2", 
-        "Endereço":"Rua Izídio Galdino da Silva, nº 2469, bairro Senador Hélio Campos.", 
+        "Endereço":"Rua Izídio Galdino da Silva, nº 2469, bairro Senador Hélio Campos." 
     },
     {
         "UF":"RS",
@@ -296,7 +296,7 @@
         "Movimentos":22, 
         "Local":"Praça da Alfândega", 
         "Datap":"2026-6-19", 
-        "Endereço":"Rua Siqueira Campos, 2529 – Centro Histórico, Porto Alegre - RS", 
+        "Endereço":"Rua Siqueira Campos, 2529 – Centro Histórico, Porto Alegre - RS" 
     },
     {
         "UF":"SC",
@@ -309,7 +309,7 @@
         "Movimentos":16, 
         "Local":"Arena Floripa", 
         "Datap":"2026-6-18", 
-        "Endereço":"Parque Metropolitano Francisco Dias Velho, S/n, Florianópolis - SC, 88010-400", 
+        "Endereço":"Parque Metropolitano Francisco Dias Velho, S/n, Florianópolis - SC, 88010-400" 
     },
     {
         "UF":"SE",
@@ -322,7 +322,7 @@
         "Movimentos":41, 
         "Local":"Colégio Estadual Professora Glorita Portugal", 
         "Datap":"2026-3-12", 
-        "Endereço":"Rua 62, s/n, bairro Eduardo Gomes / Rosa Elze", 
+        "Endereço":"Rua 62, s/n, bairro Eduardo Gomes / Rosa Elze" 
     },
     {
         "UF":"SP",
@@ -333,10 +333,8 @@
         "Data":"26 e 27 de junho", 
         "Participantes":50, 
         "Movimentos":9, 
-        "Local":"Zona Leste: Realizado no CEU Jambeiro 
-    Zona Sul: Realizado na Praça do Campo Limpo ", 
+        "Local":"Zona Leste: Realizado no CEU Jambeiro / Zona Sul: Realizado na Praça do Campo Limpo ", 
         "Datap":"2026-6-26", 
-        "Endereço":"Zona Leste: Avenida José Pinheiro Borges, 60, Guaianases.
-    Zona Sul: Rua Dr. Joviano Pacheco de Aguirre, 30, Jardim Bom Refúgio", 
+        "Endereço":"Zona Leste: Avenida José Pinheiro Borges, 60, Guaianases. / Zona Sul: Rua Dr. Joviano Pacheco de Aguirre, 30, Jardim Bom Refúgio" 
     }
 ]
