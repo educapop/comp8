@@ -15,7 +15,7 @@ Promise.all([
     // Cria o mapa
     const mapa = L.map("mapa", {
 
-        zoomControl: true,
+        zoomControl: false,
         attributionControl: false
 
     });
