@@ -1,60 +1,101 @@
-onEachFeature: function(feature, layer){
+Promise.all([
+    fetch("dados.json").then(r => r.json()),
+    fetch("mapas/brasil.json").then(r => r.json())
+])
 
-    const UF = feature.id;
-    const info = indice[UF];
+.then(([dados, brasil]) => {
 
-    if(!info) return;
+    // Índice por UF
+    const indice = {};
 
-    // Clique
-    layer.on("click", function () {
+    dados.forEach(item => {
+        indice[item.UF] = item;
+    });
 
-        document.getElementById("painel-info").innerHTML = `
+    // Cria o mapa
+    const mapa = L.map("mapa", {
 
-            <h3>${info.estado}</h3>
+        zoomControl: false,
+        attributionControl: false,
 
-            <h4>Reunião do Fórum</h4>
-
-            <p><strong>Cidade:</strong> ${info.Cidade}</p>
-
-            <p><strong>Local:</strong> ${info.Local}</p>
-
-            <p><strong>Data:</strong> ${info.Data}</p>
-
-            <p><strong>Participantes:</strong> ${info.Participantes}</p>
-
-            <p><strong>Movimentos:</strong> ${info.Movimentos}</p>
-
-            <h4>Sobre a composição do Fórum</h4>
-
-            <p>${info.descricao}</p>
-
-            <p>
-                <a href="${info.link}" target="_blank">
-                    Acessar Portaria
-                </a>
-            </p>
-
-        `;
+        dragging: false,
+        touchZoom: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        keyboard: false,
+        tap: false
 
     });
 
-    // Mouse
-    layer.on({
+    // Desenha o Brasil sem mapa de fundo
+    const camada = L.geoJSON(brasil, {
 
-        mouseover: function(e){
-
-            e.target.setStyle({
-                fillColor:"#2e2c7d"
-            });
-
+        style: {
+            color: "#2e2c7d",
+            weight: 1,
+            fillColor: "#8278d5",
+            fillOpacity: 1
         },
 
-        mouseout: function(e){
+        onEachFeature: function(feature, layer){
 
-            camada.resetStyle(e.target);
+            const UF = feature.id;
+
+            const info = indice[UF];
+
+            if(!info) return;
+
+            layer.bindPopup(`
+
+                <h3>${info.estado}</h3>
+
+                <h4><strong>Reunião do Fórum</strong></h4>
+                <p><strong>Cidade:</strong> ${info.Cidade}</p>
+
+                <p><strong>Local:</strong> ${info.Local}</p>
+
+                <p><strong>Data:</strong> ${info.Data}</p>
+
+                <p><strong>Participantes:</strong> ${info.Participantes}</p>
+
+                <p><strong>Movimentos:</strong> ${info.Movimentos}</p>
+
+                <h4><strong>Sobre a composição do Fórum:</strong></h4>
+                <p>${info.descricao}</p>
+
+                <p>
+                    <a href="${info.link}" target="_blank">
+                        Acessar Portaria
+                    </a>
+                </p>
+
+            `);
+
+            layer.on({
+
+                mouseover:function(e){
+
+                    e.target.setStyle({
+
+                        fillColor:"#2e2c7d"
+
+                    });
+
+                },
+
+                mouseout:function(e){
+
+                    camada.resetStyle(e.target);
+
+                }
+
+            });
 
         }
 
-    });
+    }).addTo(mapa);
 
-}
+    mapa.fitBounds(camada.getBounds());
+
+});
