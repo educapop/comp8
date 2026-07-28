@@ -16,7 +16,15 @@ Promise.all([
     const mapa = L.map("mapa", {
 
         zoomControl: false,
-        attributionControl: false
+        attributionControl: false,
+
+        dragging: false,
+        touchZoom: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        keyboard: false,
+        tap: false
 
     });
 
