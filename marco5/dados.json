@@ -336,5 +336,18 @@
         "Local":"Zona Leste: Realizado no CEU Jambeiro / Zona Sul: Realizado na Praça do Campo Limpo ", 
         "Datap":"2026-6-26", 
         "Endereço":"Zona Leste: Avenida José Pinheiro Borges, 60, Guaianases. / Zona Sul: Rua Dr. Joviano Pacheco de Aguirre, 30, Jardim Bom Refúgio" 
+    },
+     {
+        "UF":"TO",
+        "estado":"Tocantins", 
+        "descricao":"Art. 1º Designar os seguintes membros, titulares e suplentes, para compor o Fórum de Participação Social com atuação no Estado do Tocantins:", 
+        "link":"https://www.in.gov.br/web/dou/-/portaria-n-15-de-21-de-marco-de-2025-619326252",
+        "Cidade":"Palmas",
+        "Data":"a definir", 
+        "Participantes":0, 
+        "Movimentos":0, 
+        "Local":"a definir", 
+        "Datap":"2026-6-26", 
+        "Endereço":"a definir" 
     }
 ]
