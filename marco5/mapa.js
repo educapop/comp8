@@ -46,7 +46,9 @@ Promise.all([
 
             if(!info) return;
 
-            layer.bindPopup(`
+            layer.on("click", function () {
+
+                document.getElementById("painel-info").innerHTML = `
 
                 <h3>${info.estado}</h3>
                 <h4><strong>Reunião do Fórum</strong></h4>
