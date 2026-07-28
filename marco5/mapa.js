@@ -14,10 +14,8 @@ Promise.all([
 
     // Cria o mapa
     const mapa = L.map("mapa", {
-
         zoomControl: false,
         attributionControl: false,
-
         dragging: false,
         touchZoom: false,
         scrollWheelZoom: false,
@@ -25,10 +23,9 @@ Promise.all([
         boxZoom: false,
         keyboard: false,
         tap: false
-
     });
 
-    // Desenha o Brasil sem mapa de fundo
+    // Camada dos estados
     const camada = L.geoJSON(brasil, {
 
         style: {
@@ -38,55 +35,64 @@ Promise.all([
             fillOpacity: 1
         },
 
-        onEachFeature: function(feature, layer){
+        onEachFeature: function(feature, layer) {
 
             const UF = feature.id;
-
             const info = indice[UF];
 
-            if(!info) return;
+            if (!info) return;
 
-            layer.bindPopup(`
+            // Clique
+            layer.on("click", function () {
 
-                <h3>${info.estado}</h3>
+                document.getElementById("painel-info").innerHTML = `
 
-                <h4><strong>Reunião do Fórum</strong></h4>
-                <p><strong>Cidade:</strong> ${info.Cidade}</p>
+                    <h2>${info.estado}</h2>
 
-                <p><strong>Local:</strong> ${info.Local}</p>
+                    <h3>Reunião do Fórum</h3>
 
-                <p><strong>Data:</strong> ${info.Data}</p>
+                    <p><strong>Cidade:</strong> ${info.Cidade}</p>
 
-                <p><strong>Participantes:</strong> ${info.Participantes}</p>
+                    <p><strong>Local:</strong> ${info.Local}</p>
 
-                <p><strong>Movimentos:</strong> ${info.Movimentos}</p>
+                    <p><strong>Data:</strong> ${info.Data}</p>
 
-                <h4><strong>Sobre a composição do Fórum:</strong></h4>
-                <p>${info.descricao}</p>
+                    <p><strong>Participantes:</strong> ${info.Participantes}</p>
 
-                <p>
-                    <a href="${info.link}" target="_blank">
-                        Acessar Portaria
-                    </a>
-                </p>
+                    <p><strong>Movimentos:</strong> ${info.Movimentos}</p>
 
-            `);
+                    <h3>Sobre a composição do Fórum</h3>
 
+                    <p>${info.descricao}</p>
+
+                    <p>
+                        <a href="${info.link}" target="_blank">
+                            Acessar Portaria
+                        </a>
+                    </p>
+
+                `;
+
+            });
+
+            // Efeito ao passar o mouse
             layer.on({
 
-                mouseover:function(e){
+                mouseover: function(e) {
 
                     e.target.setStyle({
-
-                        fillColor:"#2e2c7d"
-
+                        fillColor: "#2e2c7d",
+                        weight: 2
                     });
 
                 },
 
-                mouseout:function(e){
+                mouseout: function(e) {
 
-                    camada.resetStyle(e.target);
+                    e.target.setStyle({
+                        fillColor: "#8278d5",
+                        weight: 1
+                    });
 
                 }
 
