@@ -49,19 +49,14 @@ Promise.all([
             layer.bindPopup(`
 
                 <h3>${info.estado}</h3>
-
+                <h4><strong>Reunião do Fórum</strong></h4>
                 <p><strong>Cidade:</strong> ${info.Cidade}</p>
-
                 <p><strong>Local:</strong> ${info.Local}</p>
-
                 <p><strong>Data:</strong> ${info.Data}</p>
-
                 <p><strong>Participantes:</strong> ${info.Participantes}</p>
-
                 <p><strong>Movimentos:</strong> ${info.Movimentos}</p>
-
+                <h4><strong>Sobre a composição do Fórum:</strong></h4>
                 <p>${info.descricao}</p>
-
                 <p>
                     <a href="${info.link}" target="_blank">
                         Acessar Portaria
