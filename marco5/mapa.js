@@ -32,9 +32,9 @@ Promise.all([
     const camada = L.geoJSON(brasil, {
 
         style: {
-            color: "#444",
+            color: "#2e2c7d",
             weight: 1,
-            fillColor: "#d9e7f5",
+            fillColor: "#8278d5",
             fillOpacity: 1
         },
 
@@ -76,7 +76,7 @@ Promise.all([
 
                     e.target.setStyle({
 
-                        fillColor:"#5b9bd5"
+                        fillColor:"#2e2c7d"
 
                     });
 
