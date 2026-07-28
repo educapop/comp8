@@ -32,9 +32,9 @@ Promise.all([
 
         onEachFeature: function(feature, layer){
 
-            const uf = feature.properties.id;
+            const UF = feature.properties.id;
 
-            const info = indice[uf];
+            const info = indice[UF];
 
             if(!info) return;
 
